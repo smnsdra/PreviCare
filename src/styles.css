@@ -1,0 +1,1019 @@
+/* PREVICARE OVERRIDES - extended with gallery, promos, video and healthtrack styles */
+
+/* PreviCare color tokens */
+:root {
+  --pc-green: #a2e04B;
+  --pc-turquoise: #00A9A5;
+  --pc-lightblue: #87E0F7;
+  --pc-salmon: #F16659;
+  --pc-white: #FFFFFF;
+  --pc-dark: #06414a;
+
+  /* Map template variables to PreviCare palette */
+  --accent-color: var(--pc-turquoise);
+  --heading-color: var(--pc-dark);
+  --default-color: #264547;
+  --surface-color: #ffffff;
+  --background-color: #DCF0ED;
+  --contrast-color: var(--pc-white);
+  --nav-color: var(--pc-dark);
+  --nav-hover-color: var(--pc-turquoise);
+}
+
+/* Hero tweaks */
+.hero .welcome h2 {
+  color: var(--pc-dark);
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: 0.6px;
+}
+.hero .welcome p {
+  color: color-mix(in srgb, var(--pc-dark), black 10%);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+}
+
+/* Video portrait */
+.vertical-video {
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  box-shadow: 0 6px 24px rgba(6,65,74,0.12);
+  margin: 0 auto;
+}
+
+/* Info pills */
+.info-pill {
+  background: linear-gradient(90deg, rgba(0,169,165,0.08), rgba(183,224,75,0.06));
+  color: var(--pc-dark);
+  padding: 8px 12px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+.info-pill i {
+  color: var(--pc-turquoise);
+}
+
+/* Icon small box */
+.icon-box.small {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,250,250,0.95));
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+}
+.icon-box.small i {
+  font-size: 28px;
+  color: var(--pc-turquoise);
+  background: linear-gradient(180deg,var(--pc-green),var(--pc-turquoise));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Promotions */
+.promos {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.promo-card {
+  display: flex;
+  gap: 12px;
+  background: var(--surface-color);
+  padding: 12px;
+  border-radius: 10px;
+  align-items: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+}
+.promo-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--pc-turquoise), var(--pc-lightblue));
+  color: var(--pc-white);
+  flex-shrink: 0;
+}
+.promo-body h5 {
+  margin: 0 0 6px 0;
+}
+.promo-body .small-muted {
+  margin-bottom: 8px;
+}
+
+/* Gallery grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+.gallery-item img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  transition: transform .3s ease;
+}
+.gallery-item:hover img {
+  transform: scale(1.08);
+}
+.gallery-caption {
+  position: absolute;
+  bottom: 6px;
+  left: 8px;
+  color: #fff;
+  text-shadow: 0 4px 14px rgba(0,0,0,0.5);
+  font-weight: 600;
+}
+
+/* Gallery modal */
+.gallery-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.gallery-modal-inner {
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+  position: relative;
+}
+.gallery-modal-inner img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+.modal-close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  z-index: 3;
+}
+
+/* HealthTrack styling */
+.healthtrack-form input,
+.healthtrack-form textarea {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--pc-dark), transparent 85%);
+}
+.health-entry {
+  background: var(--surface-color);
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.small-muted {
+  color: color-mix(in srgb, var(--pc-dark), transparent 60%);
+  font-size: 0.9rem;
+}
+
+/* Buttons and CTA */
+.btn-primary {
+  background: linear-gradient(90deg, var(--pc-salmon), var(--pc-lightblue));
+  border: none;
+  color: var(--pc-white);
+}
+.btn-outline-primary {
+  color: var(--pc-turquoise);
+  border-color: var(--pc-turquoise);
+}
+
+/* Utilities */
+.centered { text-align: center; }
+
+/* responsive tweaks */
+@media (max-width: 768px) {
+  .gallery-item img { height: 140px; }
+  .promo-card { padding: 10px; }
+}
+
+.right-column { height: 100%; }
+.fill-cards { min-height: 1px; } /* ensures flex container participates in stretch */
+.fill-card {
+  background: var(--surface-color);
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+  flex: 1;            /* make each fill-card expand equally */
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.fill-card h5 { margin: 0 0 6px 0; }
+.fill-card .small-muted { margin: 0; font-size: .95rem; color: color-mix(in srgb, var(--pc-dark), transparent 50%); }
+.promos-wrapper .promos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+/* Append these carousel styles to src/styles.css */
+
+/* Carousel image sizing for About gallery */
+.about-gallery-carousel .carousel-image {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Make carousel caption legible */
+.about-gallery-carousel .carousel-caption {
+  background: rgba(0,0,0,0.35);
+  padding: 8px 12px;
+  border-radius: 6px;
+  bottom: 16px;
+}
+
+/* Keep modal/grid gallery rules unchanged for non-autoplay behavior */
+.gallery-grid { gap: 12px; }
+.gallery-item img { height: 160px; object-fit: cover; }
+
+/* Responsive tweaks */
+@media (max-width: 767px) {
+  .about-gallery-carousel .carousel-image {
+    height: 240px;
+  }
+}
+/* Generic about card style */
+.about-card {
+  background: var(--surface-color);
+  border-radius: 10px;
+  box-shadow: 0 8px 22px rgba(6,65,74,0.06);
+}
+.about-card .card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--pc-turquoise), var(--pc-lightblue));
+  color: var(--pc-white);
+  font-size: 1.25rem;
+}
+.about-card h3, .about-card h4 {
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+.about-card p {
+  margin-bottom: 0;
+}
+
+/* Program cards */
+.program-card {
+  transition: transform .18s ease, box-shadow .18s ease;
+  display: flex;
+  flex-direction: column;
+}
+.program-card .program-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--pc-green), var(--pc-turquoise));
+  color: #fff;
+}
+.program-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(6,65,74,0.08);
+}
+
+/* Stats & team cards */
+.stat-card .card-icon {
+  background: linear-gradient(180deg, var(--pc-lightblue), var(--pc-green));
+  color: white;
+  font-size: 1.25rem;
+}
+
+/* Layout tweaks for about cards row */
+.about-cards-row {
+  margin-top: 16px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 767px) {
+  .about-card .card-icon, .program-card .program-icon {
+    width: 48px;
+    height: 48px;
+  }
+  .program-card h5 { font-size: 1rem; }
+}
+
+/* About page additions: goals grid + small visual tweaks */
+
+/* Goals grid */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+/* Goal card */
+.goal-card {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  border-radius: 10px;
+  background: var(--surface-color);
+  box-shadow: 0 8px 22px rgba(6,65,74,0.06);
+}
+.goal-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--pc-turquoise), var(--pc-lightblue));
+  color: var(--pc-white);
+  flex-shrink: 0;
+}
+
+/* Small adjustments for the preserved about cards */
+.about-card { background: var(--surface-color); border-radius: 10px; box-shadow: 0 8px 22px rgba(6,65,74,0.06); }
+.program-card .program-icon { width: 56px; height: 56px; border-radius: 12px; display:flex;align-items:center;justify-content:center; background: linear-gradient(180deg, var(--pc-green), var(--pc-turquoise)); color: #fff; }
+.stat-card .card-icon { width: 56px; height: 56px; border-radius: 12px; display:flex;align-items:center;justify-content:center; background: linear-gradient(180deg, var(--pc-lightblue), var(--pc-green)); color: #fff; }
+
+@media (max-width: 767px) {
+  .goal-card { padding: 12px; gap: 10px; }
+  .goal-icon, .program-card .program-icon, .stat-card .card-icon { width: 48px; height: 48px; }
+}
+
+/* About page updates: team photo, team roles and small adjustments */
+
+/* Team photo */
+.team-photo-wrapper { text-align: center; }
+.team-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(6,65,74,0.06);
+}
+
+
+/* Goals grid already exists but keep spacing */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+/* Shared about card visuals (already present earlier) */
+.about-card { background: var(--surface-color); border-radius: 10px; box-shadow: 0 8px 22px rgba(6,65,74,0.06); }
+.program-card .program-icon { width: 56px; height: 56px; border-radius: 12px; display:flex;align-items:center;justify-content:center; background: linear-gradient(180deg, var(--pc-green), var(--pc-turquoise)); color: #fff; }
+.stat-card .card-icon { width: 56px; height: 56px; border-radius: 12px; display:flex;align-items:center;justify-content:center; background: linear-gradient(180deg, var(--pc-lightblue), var(--pc-green)); color: #fff; }
+
+@media (max-width: 767px) {
+   .goal-icon, .program-card .program-icon, .stat-card .card-icon { width: 48px; height: 48px; }
+  .team-roles-grid { gap: 10px; }
+}
+
+
+
+/* Team photo kept as before */
+.team-photo-wrapper { text-align: center; }
+.team-photo {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(6,65,74,0.06);
+}
+
+/* TEAM BAR: horizontal bar of icon + title items that sits below both the about description and the image */
+/* Layout */
+.team-bar {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 6px;
+}
+
+/* Each item: icon above title (no background) */
+.team-bar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 120px;
+  text-align: center;
+  color: var(--pc-dark);
+  cursor: default;
+  padding: 6px;
+}
+
+/* Icon appearance: plain icon (no background) */
+.team-bar-icon {
+  font-size: 1.6rem;
+  color: var(--pc-turquoise);
+}
+
+/* Title under the icon */
+.team-bar-title {
+  font-size: 0.9rem;
+  margin-top: 2px;
+  color: var(--pc-dark);
+}
+
+/* Hover/focus effects (subtle) */
+.team-bar-item:hover .team-bar-icon,
+.team-bar-item:focus-within .team-bar-icon {
+  transform: translateY(-3px);
+  color: var(--pc-dark);
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .team-bar {
+    gap: 12px;
+  }
+  .team-bar-item { min-width: 90px; padding: 4px; }
+  .team-bar-icon { font-size: 1.35rem; }
+  .team-bar-title { font-size: 0.8rem; }
+}
+
+/* Append these styles to the end of src/styles.css */
+
+/* Offers ribbon: flat, modern alternative to card-grid used elsewhere.
+   - horizontally scrollable on small screens with snap behavior
+   - large circular icons, compact titles and short descriptions
+   - no boxed cards; uses soft separators and a thin gradient band for context
+*/
+
+.offers-ribbon-wrap {
+  position: relative;
+  margin-top: 12px;
+}
+
+/* subtle background band behind the ribbon for separation */
+.offers-ribbon-hint {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 50%;
+  height: 56%;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, rgba(2,135,120,0.03), rgba(3,166,150,0.03));
+  border-radius: 14px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* main ribbon - flex row, wrap to multiple lines if needed, or horizontal scroll on small screens */
+.offers-ribbon {
+  display: flex;
+  gap: 18px;
+  padding: 18px 6%;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  z-index: 1;
+}
+
+/* pill-like items */
+.offer-pill {
+  flex: 0 0 320px; /* comfortable width on desktop */
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  scroll-snap-align: center;
+  min-width: 260px;
+  background: transparent; /* intentionally not a boxed card */
+  padding: 10px 14px;
+  border-radius: 12px;
+  transition: transform .12s ease, color .12s ease;
+}
+
+/* icon is large circular, but flat (no shadow), with subtle ring on hover */
+.offer-pill-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--pc-turquoise), var(--pc-green));
+  color: #fff;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+
+/* body text */
+.offer-pill-body { line-height: 1.2; }
+.offer-pill-title { font-weight: 700; margin-bottom: 6px; font-size: 1.02rem; color: var(--pc-dark); }
+.offer-pill-text { color: rgba(0,0,0,0.62); font-size: 0.95rem; }
+
+/* hover / focus */
+.offer-pill:hover .offer-pill-icon,
+.offer-pill:focus-within .offer-pill-icon {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 10px 30px rgba(6,65,74,0.08);
+}
+.offer-pill:hover .offer-pill-title { color: var(--pc-dark); transform: translateY(-2px); }
+
+/* responsive adjustments */
+@media (max-width: 991px) {
+  .offer-pill { flex: 0 0 260px; min-width: 240px; }
+  .offers-ribbon { padding-left: 12px; padding-right: 12px; }
+}
+@media (max-width: 575px) {
+  .offer-pill { flex: 0 0 220px; min-width: 200px; gap: 10px; padding: 8px 10px; }
+  .offer-pill-icon { width: 56px; height: 56px; font-size: 1.25rem; }
+  .offer-pill-title { font-size: 0.98rem; }
+  .offers-ribbon-hint { display: none; }
+}
+
+  .offers-ribbon-wrap {
+            position: relative;
+            margin-top: 20px;
+          }
+
+  .offers-ribbon {
+    overflow: hidden;
+    width: 100%;
+    padding: 12px 0;
+  }
+
+  .offers-ribbon-track {
+    display: flex;
+    gap: 28px; /* increased gap between offers */
+    align-items: center;
+    flex-wrap: nowrap;
+    animation-name: pc-marquee;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+  }
+
+  .offer-pill {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    background: rgba(255,255,255,0.95);
+    border-radius: 999px;
+    padding: 14px 22px; /* increased padding for larger height */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    flex: 0 0 auto;
+    min-width: 260px; /* slightly wider minimum */
+    max-width: 360px;
+    align-items: center;
+    height: 120px;
+  }
+
+  .offer-pill-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px; /* bigger icon container */
+    height: 52px;
+    border-radius: 50%;
+    background: var(--pc-turquoise, #1abc9c);
+    color: #fff;
+    flex-shrink: 0;
+    font-size: 1.3rem; /* larger icon */
+    }
+
+  .offer-pill-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .offer-pill-title {
+    font-weight: 600;
+    color: var(--pc-dark, #0b2944);
+    font-size: 1.02rem;   
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .offer-pill-text {
+    font-size: 0. nine; /* fallback removed, using correct number below */
+    font-size: 0. nine;
+    font-size: 0.9rem;
+    color: #6c757d;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 260px; /* slightly wider minimum */
+  }
+
+  .offers-ribbon-hint {
+    display: none !important;
+  }
+
+  @keyframes pc-marquee {
+    from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+    }
+
+/* Pause animation on hover/focus for discoverability */
+  .offers-ribbon-track:hover,
+      .offers-ribbon-track:focus-within {
+          animation-play-state: paused;
+  }
+
+/* Respect user's reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .offers-ribbon-track {
+          animation: none;
+    }
+  }
+
+/* small screens: make pills slightly smaller */
+  @media (max-width: 576px) {
+    .offer-pill { min-width: 200px; padding: 12px 14px; }
+    .offer-pill-icon { width: 44px; height: 44px; font-size: 1.1rem; }
+    .offer-pill-title { font-size: 0.96rem; }
+    .offer-pill-text { font-size: 0.82rem; display: none; } /* hide text on very small screens to keep it tidy */
+    .offers-ribbon-track { gap: 18px; } /* reduced gap for small screens */
+  }
+
+  /* ========================= SERVICES SECTION ========================= */
+.services.section {
+  padding: 80px 0;
+  background-color: var(--background-color);
+}
+
+.services .section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.services .section-title h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.services .section-title p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.service-item {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 30px 20px;
+  text-align: center;
+  transition: 0.3s ease;
+  border: 1px solid #eaeaea;
+}
+
+.service-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.service-item .icon {
+  font-size: 2.5rem;
+  color: var(--pc-salmon);
+  margin-bottom: 20px;
+}
+
+.service-item h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.service-item p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* ========================= DETAILED SECTIONS ========================= */
+.section {
+  padding: 80px 0;
+}
+
+.light-background {
+  background-color: var(--background-color);
+}
+
+.section-title h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.section-title p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* ========================= CARDS ========================= */
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 25px 20px;
+  transition: 0.3s ease;
+  border: 1px solid #e0e0e0;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+}
+
+.card .icon {
+  font-size: 2rem;
+  color:var(--pc-lightblue);
+}
+
+.card h5 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #333;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* ========================= GALLERY ========================= */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 10px;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+}
+
+
+/* ========================= LISTS ========================= */
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+ul li {
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* ========================= RESPONSIVENESS ========================= */
+@media (max-width: 768px) {
+  .services .service-item {
+    margin-bottom: 20px;
+  }
+  
+  .gallery {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========================= KEY HIGHLIGHTS ========================= */
+.key-highlights {
+  background-color: var(--background-color); /* خلفية فاتحة وهادية */
+  padding: 30px 25px;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  margin-top: 30px;
+}
+
+.key-highlights h5 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--pc-turquoise);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.key-highlights ul {
+  list-style: none; /* نلغي النقاط الافتراضية */
+  padding: 0;
+}
+
+.key-highlights ul li {
+  position: relative;
+  font-size: 1rem;
+  color: #333;
+  padding-left: 35px;
+  margin-bottom: 15px;
+  line-height: 1.5;
+  transition: 0.3s ease;
+}
+
+.key-highlights ul li::before {
+  content: "\2713"; 
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1.2rem;
+  color: var(--pc-lightblue);
+}
+
+.key-highlights ul li:hover {
+  color: var(--pc-turquoise);
+  transform: translateX(5px);
+}
+
+:root {
+  --pc-perk-size: clamp(96px, 12vw, 160px);
+  --pc-perk-gap: 28px;
+  --pc-perk-shadow: 0 14px 40px rgba(6,65,74,0.08);
+  --pc-perk-text: var(--pc-dark, #06414a);
+}
+
+/* Strongly target the perks wrapper and grid so it centers regardless of other page CSS */
+.perks-root,
+.perks-section,
+.perks-container {
+  width: 100% !important;
+  box-sizing: border-box;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;    /* center heading and grid */
+  justify-content: center;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Constrain the row so it doesn't stretch to the full page width (keeps circles centered) */
+.perks-root .perks-inner,
+.perks-section .perks-inner,
+.perks-container .perks-inner {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 8px 16px;
+  box-sizing: border-box;
+}
+
+/* Use CSS Grid for predictable centered rows: 4 across on wide screens */
+.perks-root .promo-grid,
+.perks-section .promo-grid,
+.perks-container .promo-grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, var(--pc-perk-size));
+  gap: var(--pc-perk-gap);
+  justify-content: center; /* center the grid inside the max-width container */
+  align-items: center;
+  place-items: center;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Individual circle styling */
+.perks-root .promo-item,
+.perks-section .promo-item,
+.perks-container .promo-item {
+  width: var(--pc-perk-size) !important;
+  height: var(--pc-perk-size) !important;
+  min-width: var(--pc-perk-size) !important;
+  min-height: var(--pc-perk-size) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  box-shadow: var(--pc-perk-shadow) !important;
+  cursor: pointer !important;
+  border: none !important;
+  background-size: cover !important;
+  background-position: center !important;
+  transition: transform .18s ease, box-shadow .18s ease;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Hover lift */
+.perks-root .promo-item:hover,
+.perks-root .promo-item:active,
+.perks-section .promo-item:hover,
+.perks-section .promo-item:active {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 18px 48px rgba(6,65,74,0.12) !important;
+}
+
+/* Make sure inner content centers and titles are uppercase */
+.perks-root .promo-front-wrap,
+.perks-section .promo-front-wrap,
+.perks-container .promo-front-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px;
+  text-align: center;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.perks-root .promo-title,
+.perks-section .promo-title,
+.perks-container .promo-title {
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+  color: #fff !important;
+  letter-spacing: 0.6px;
+  margin-top: 6px;
+  font-size: clamp(12px, 2.2vw, 15px);
+}
+
+/* Responsive rules: 4 -> 3 -> 2 -> 1 columns */
+@media (max-width: 1150px) {
+  .perks-root .promo-grid,
+  .perks-section .promo-grid,
+  .perks-container .promo-grid {
+    grid-template-columns: repeat(3, var(--pc-perk-size));
+  }
+}
+@media (max-width: 880px) {
+  .perks-root .promo-grid,
+  .perks-section .promo-grid,
+  .perks-container .promo-grid {
+    grid-template-columns: repeat(2, var(--pc-perk-size));
+    justify-content: center;
+  }
+}
+@media (max-width: 480px) {
+  :root { --pc-perk-size: clamp(72px, 26vw, 110px); --pc-perk-gap: 16px; }
+  .perks-root .promo-grid,
+  .perks-section .promo-grid,
+  .perks-container .promo-grid {
+    grid-template-columns: repeat(1, var(--pc-perk-size));
+    justify-items: center;
+  }
+}
+
+/* Optional color classes (use .promo-color-1 etc on each .promo-item) */
+.perks-root .promo-color-1 { background: linear-gradient(135deg, var(--pc-turquoise, #00A9A5) 0%, color-mix(in srgb, var(--pc-turquoise, #00A9A5), white 6%) 100%) !important; }
+.perks-root .promo-color-2 { background: linear-gradient(135deg, #ffd166 0%, var(--pc-salmon, #F16659) 100%) !important; }
+.perks-root .promo-color-3 { background: linear-gradient(135deg, #9fb8ff 0%, var(--pc-lightblue, #87E0F7) 100%) !important; }
+.perks-root .promo-color-4 { background: linear-gradient(135deg, #7FE0C6 0%, var(--pc-green, #a2e04B) 100%) !important; }
+
+/* Accessibility: focus outline */
+.perks-root .promo-item:focus-visible,
+.perks-section .promo-item:focus-visible,
+.perks-container .promo-item:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--pc-turquoise, #00A9A5), white 85%) !important;
+}
+
+/* Defensive: ensure container alignment if placed inside a narrow column.
+   If you still see left-alignment, make sure the component is rendered in a full-width column (.col-12).
+*/
