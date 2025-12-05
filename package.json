@@ -1,13 +1,16 @@
 {
   "name": "previcare-web",
   "version": "1.0.0",
+  "homepage": "https://smnsdra.github.io/PreviCare/",
   "private": true,
   "description": "PreviCare — React frontend using Create React App and Medilab CSS",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
@@ -40,5 +43,8 @@
     "medilab"
   ],
   "author": "sedrasamman4-cell",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
 }
