@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/PreviCare/static/css/main.05c983b1.css",
+    "main.js": "/PreviCare/static/js/main.7a9a76a9.js",
+    "static/js/253.e347fc27.chunk.js": "/PreviCare/static/js/253.e347fc27.chunk.js",
+    "static/js/488.2487e364.chunk.js": "/PreviCare/static/js/488.2487e364.chunk.js",
+    "index.html": "/PreviCare/index.html",
+    "main.05c983b1.css.map": "/PreviCare/static/css/main.05c983b1.css.map",
+    "main.7a9a76a9.js.map": "/PreviCare/static/js/main.7a9a76a9.js.map",
+    "253.e347fc27.chunk.js.map": "/PreviCare/static/js/253.e347fc27.chunk.js.map",
+    "488.2487e364.chunk.js.map": "/PreviCare/static/js/488.2487e364.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.05c983b1.css",
+    "static/js/main.7a9a76a9.js"
+  ]
+}
