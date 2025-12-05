@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Promos from "../components/Promos";
 import Gallery from "../components/Gallery";
 import "../styles/perks-section.css"; // Ensure styles for flipping circles are loaded
-
+<link href="%PUBLIC_URL%/styles/perks-section.css" rel="stylesheet">
 // Dynamically load the small interaction helper only in the browser
 // (prevents issues when rendering on the server)
 function usePerksInteraction() {
