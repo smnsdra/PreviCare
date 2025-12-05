@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -10,11 +10,11 @@ import Services from "./pages/Services";
 import Volunteer from "./pages/Volunteer";
 import Contact from "./pages/Contact";
 import HealthTrack from "./pages/HealthTrack";
-import { LoginPage, RegisterPage } from "./pages/LoginRegister"; // <-- Add RegisterPage if you want
+import { LoginPage, RegisterPage } from "./pages/LoginRegister";
 
 function App() {
   return (
-    <Router>
+    <>
       <Header />
       <main className="main">
         <Routes>
@@ -24,12 +24,12 @@ function App() {
           <Route path="/volunteer" element={<Volunteer />} />
           <Route path="/healthtrack" element={<HealthTrack />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<LoginPage />} />           {/* <-- Add this! */}
-          <Route path="/register" element={<RegisterPage />} />     {/* <-- Optional: registration */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </main>
       <Footer />
-    </Router>
+    </>
   );
 }
 
