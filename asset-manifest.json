@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.05c983b1.css",
-    "main.js": "/static/js/main.5f7d56ea.js",
-    "static/js/253.e347fc27.chunk.js": "/static/js/253.e347fc27.chunk.js",
-    "static/js/488.2487e364.chunk.js": "/static/js/488.2487e364.chunk.js",
-    "index.html": "/index.html",
-    "main.05c983b1.css.map": "/static/css/main.05c983b1.css.map",
-    "main.5f7d56ea.js.map": "/static/js/main.5f7d56ea.js.map",
-    "253.e347fc27.chunk.js.map": "/static/js/253.e347fc27.chunk.js.map",
-    "488.2487e364.chunk.js.map": "/static/js/488.2487e364.chunk.js.map"
+    "main.css": "/PreviCare/static/css/main.05c983b1.css",
+    "main.js": "/PreviCare/static/js/main.de2403a2.js",
+    "static/js/253.e347fc27.chunk.js": "/PreviCare/static/js/253.e347fc27.chunk.js",
+    "static/js/488.2487e364.chunk.js": "/PreviCare/static/js/488.2487e364.chunk.js",
+    "index.html": "/PreviCare/index.html",
+    "main.05c983b1.css.map": "/PreviCare/static/css/main.05c983b1.css.map",
+    "main.de2403a2.js.map": "/PreviCare/static/js/main.de2403a2.js.map",
+    "253.e347fc27.chunk.js.map": "/PreviCare/static/js/253.e347fc27.chunk.js.map",
+    "488.2487e364.chunk.js.map": "/PreviCare/static/js/488.2487e364.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.05c983b1.css",
-    "static/js/main.5f7d56ea.js"
+    "static/js/main.de2403a2.js"
   ]
 }
