@@ -1,7 +1,6 @@
 { 
   "name": "previcare-web", 
   "version": "1.0.0", 
-  "homepage": "https://smnsdra.github.io/PreviCare/",
   "private": true, 
   "description": 
   "PreviCare — React frontend using Create React App and Medilab CSS", 
