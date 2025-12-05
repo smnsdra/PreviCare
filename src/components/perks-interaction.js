@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-<link href="%PUBLIC_URL%/styles/perks-section.css" rel="stylesheet">
+import "../styles/perks-section.css";
 
 
 /**
