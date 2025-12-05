@@ -4,7 +4,7 @@
   "private": true, 
   "description": 
   "PreviCare — React frontend using Create React App and Medilab CSS",
-  "homepage": "https://smnsdra.github.io/PreviCare/",
+  "homepage": "https://smnsdra.github.io/PreviCare",
 "scripts": {
   "start": "react-scripts start",
   "build": "react-scripts build",
