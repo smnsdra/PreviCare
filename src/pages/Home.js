@@ -15,12 +15,12 @@ function usePerksInteraction() {
 }
 
 const workshopImages = [
-  { src: "/assets/img/gallery/workshop-1.jpg", caption: "Community Screening — Beirut" },
-  { src: "/assets/img/gallery/workshop-2.jpg", caption: "Vaccination Awareness Session" },
-  { src: "/assets/img/gallery/workshop-3.jpg", caption: "School Health Workshop" },
-  { src: "/assets/img/gallery/workshop-4.jpg", caption: "Nutrition & Wellness" },
-  { src: "/assets/img/gallery/workshop-5.jpg", caption: "Mental Health Meetup" },
-  { src: "/assets/img/gallery/workshop-6.jpg", caption: "Volunteer Training Day" }
+{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-1.jpg`, caption: "Community Screening — Beirut" }
+{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-2.jpg`, caption: "Vaccination Awareness Session" }
+{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-3.jpg`, caption: "School Health Workshop" }
+{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-4.jpg`, caption: "Nutrition & Wellness" }
+{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-5.jpg`, caption: "Mental Health Meetup" }
+{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-6.jpg`, caption: "Volunteer Training Day" }
 ];
 
 export default function Home() {
@@ -37,11 +37,11 @@ export default function Home() {
       {/* Hero */}
       <section id="hero" className="hero section light-background" aria-label="Hero">
         <img
-          src="/assets/img/hero-bg.jpg"
-          alt="PreviCare hero background"
+          src={`${process.env.PUBLIC_URL}/assets/img/hero-bg.jpg`}          alt="PreviCare hero background"
           data-aos="fade-in"
           style={{ width: "100%", objectFit: "cover" }}
         />
+
         <div className="container position-relative">
           <div className="welcome position-relative text-center" data-aos="fade-down" data-aos-delay="100">
             <h2 className="text-center">Welcome to PreviCare</h2>
@@ -98,7 +98,7 @@ export default function Home() {
                     <video
                       controls
                       className="vertical-video"
-                      src="/assets/videos/intro.mp4"
+                      src={`${process.env.PUBLIC_URL}/assets/videos/intro.mp4`}
                       style={{
                         width: 300,
                         maxWidth: "100%",
