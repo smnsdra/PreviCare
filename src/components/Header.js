@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import logo from "../assets/img/logo.png";
 
 export default function Header() {
   return (
@@ -8,7 +7,7 @@ export default function Header() {
       <div className="branding d-flex align-items-center">
         <div className="container position-relative d-flex align-items-center justify-content-between">
           <Link to="/" className="logo d-flex align-items-center me-auto">
-            <img src={logo}
+            <img src="https://smnsdra.github.io/PreviCare/assets/img/logo.png"
                style={{ maxHeight: 60, marginRight: 8 }} />
             <h1 className="sitename">PreviCare</h1>
           </Link>
