@@ -7,7 +7,8 @@ export default function Header() {
       <div className="branding d-flex align-items-center">
         <div className="container position-relative d-flex align-items-center justify-content-between">
           <Link to="/" className="logo d-flex align-items-center me-auto">
-            <img src="/assets/img/logo.png" alt="PreviCare logo" style={{ maxHeight: 60, marginRight: 8 }} />
+            <img   src={`${process.env.PUBLIC_URL}/assets/img/logo.png`}
+               style={{ maxHeight: 60, marginRight: 8 }} />
             <h1 className="sitename">PreviCare</h1>
           </Link>
           <nav id="navmenu" className="navmenu">
