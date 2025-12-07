@@ -1,14 +1,16 @@
 import React from "react";
 import Gallery from "../components/Gallery1";
 
-const activityImages = [
-  { src: "/assets/img/gallery/workshop-1.jpg", caption: "Community Screening — Beirut" },
-  { src: "/assets/img/gallery/workshop-2.jpg", caption: "Vaccination Awareness Session" },
-  { src: "/assets/img/gallery/workshop-3.jpg", caption: "School Health Workshop" },
-  { src: "/assets/img/gallery/workshop-4.jpg", caption: "Nutrition & Wellness" },
-  { src: "/assets/img/gallery/workshop-5.jpg", caption: "Mental Health Meetup" },
-  { src: "/assets/img/gallery/workshop-6.jpg", caption: "Volunteer Training Day" }
+
+const workshopImages = [
+{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-1.jpg`, caption: "Community Screening — Beirut" }
+{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-2.jpg`, caption: "Vaccination Awareness Session" }
+{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-3.jpg`, caption: "School Health Workshop" }
+{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-4.jpg`, caption: "Nutrition & Wellness" }
+{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-5.jpg`, caption: "Mental Health Meetup" }
+{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-6.jpg`, caption: "Volunteer Training Day" }
 ];
+
 
 export default function About() {
   const programs = [
@@ -110,7 +112,7 @@ export default function About() {
             {/* RIGHT: single photo (kept) */}
             <div className="col-lg-4">
               <div className="team-photo-wrapper">
-                <img src="/assets/img/about/team-photo.jpg" alt="PreviCare team" className="team-photo" />
+                <img src={`${process.env.PUBLIC_URL}/assets/img//about/team-photo.jpg" alt="PreviCare team" className="team-photo" } />
               </div>
             </div>
           </div>
