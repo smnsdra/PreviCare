@@ -212,7 +212,7 @@ export default function Volunteer() {
                 <video
                   controls
                   className="vertical-video"
-                  src="/assets/videos/volunteer.mp4"
+                  src={`${process.env.PUBLIC_URL}/assets/videos/volunteer.mp4`}
                   style={{ width: 300, maxWidth: "100%", borderRadius: 8 }}
                   aria-label="PreviCare volunteer introduction video"
                 />
