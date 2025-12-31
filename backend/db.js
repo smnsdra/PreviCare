@@ -6,11 +6,10 @@ const pool = mysql
     user: process.env.MYSQLUSER,
     password: process.env.MYSQLPASSWORD,
     database: process.env.MYSQLDATABASE,
-    port: process.env.MYSQLPORT,
+    port: Number(process.env.MYSQLPORT),
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0,
-    ssl: { rejectUnauthorized: false } // 🔴 مهم مع Railway
+    queueLimit: 0
   })
   .promise();
 
