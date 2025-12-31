@@ -21,7 +21,7 @@ router.post(
     const { name, email, subject, message } = req.body;
     try {
       const [result] = await pool.execute(
-        'INSERT INTO contacts (name, email, subject, message) VALUES (?, ?, ?, ?)',
+        'INSERT INTO contact (name, email, subject, message) VALUES (?, ?, ?, ?)',
         [name, email, subject, message]
       );
 
