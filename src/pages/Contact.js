@@ -20,7 +20,7 @@ export default function Contact() {
 
     try {
       const res = await fetch(
-        "https://previcare.onrender.com/api/contact",
+        "https://previcare-production.up.railway.app/api/contact",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
