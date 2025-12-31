@@ -20,7 +20,7 @@ export default function Contact() {
 
     try {
       const res = await fetch(
-        "brilliant-solace-production.up.railway.app",
+        "https://brilliant-solace-production.up.railway.app/api/contact",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
