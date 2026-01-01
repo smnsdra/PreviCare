@@ -1,16 +1,11 @@
-const mysql = require('mysql2');
+const mysql = require("mysql2");
+
+if (!process.env.MYSQL_PUBLIC_URL) {
+  throw new Error("❌ MYSQL_PUBLIC_URL is missing");
+}
 
 const pool = mysql
-  .createPool({
-    host: process.env.MYSQLHOST,
-    user: process.env.MYSQLUSER,
-    password: process.env.MYSQLPASSWORD,
-    database: process.env.MYSQLDATABASE,
-    port: Number(process.env.MYSQLPORT),
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-  })
+  .createPool(process.env.MYSQL_PUBLIC_URL)
   .promise();
 
 module.exports = pool;
