@@ -76,9 +76,12 @@ router.post(
         message: 'Message received',
       });
     } catch (err) {
-      console.error('Contact save error:', err);
-      res.status(500).json({ error: 'Internal server error' });
-    }
+       console.error('Contact save error:', err);
+       res.status(500).json({
+       error: 'DB error',
+       details: err.message
+     });
+   }
   }
 );
 
