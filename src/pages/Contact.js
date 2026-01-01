@@ -5,37 +5,49 @@ export default function Contact() {
     name: "",
     email: "",
     subject: "",
-    message: ""
+    message: "",
   });
 
   const [status, setStatus] = useState("");
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // مهم جدًا
     setStatus("loading");
 
     try {
       const res = await fetch(
-          "https://brilliant-solace-production.up.railway.app/api/contact",
+        "https://brilliant-solace-production.up.railway.app/api/contact",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form)
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
         }
       );
 
       const data = await res.json();
 
-      if (!res.ok) throw new Error(data.error || "Error");
+      if (!res.ok) {
+        throw new Error(data.error || "Request failed");
+      }
 
       setStatus("success");
-      setForm({ name: "", email: "", subject: "", message: "" });
-    } catch (err) {
-      console.error(err);
+      setForm({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Contact form error:", error);
       setStatus("error");
     }
   };
@@ -76,7 +88,7 @@ export default function Contact() {
           </div>
 
           <div className="col-lg-8">
-            <form onSubmit={handleSubmit} className="php-email-form">
+            <form className="php-email-form" onSubmit={handleSubmit}>
               <div className="row gy-4">
                 <div className="col-md-6">
                   <input
@@ -123,21 +135,31 @@ export default function Contact() {
                     value={form.message}
                     onChange={handleChange}
                     required
-                  />
+                  ></textarea>
                 </div>
 
                 <div className="col-md-12 text-center">
-                  {status === "loading" && <div className="loading">Sending...</div>}
-                  {status === "success" && <div className="sent-message">Your message has been sent. Thank you!</div>}
-                  {status === "error" && <div className="error-message">Something went wrong. Try again.</div>}
+                  {status === "loading" && (
+                    <div className="loading">Sending...</div>
+                  )}
+                  {status === "success" && (
+                    <div className="sent-message">
+                      Your message has been sent. Thank you!
+                    </div>
+                  )}
+                  {status === "error" && (
+                    <div className="error-message">
+                      Something went wrong. Please try again.
+                    </div>
+                  )}
                   <button type="submit">Send Message</button>
                 </div>
               </div>
             </form>
           </div>
-
         </div>
       </div>
     </section>
   );
 }
+
