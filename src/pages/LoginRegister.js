@@ -4,14 +4,22 @@ import "./HealthTrack.css";
 
 const API_URL = "https://brilliant-solace-production.up.railway.app/api";
 
-/* ================= LOGIN ================= */
+/* ======================================================
+   LOGIN PAGE
+====================================================== */
 export function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
+  const [status, setStatus] = useState(""); // "", loading, error
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  async function submit(e) {
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setStatus("loading");
     setError("");
 
     try {
@@ -30,8 +38,9 @@ export function LoginPage() {
       navigate("/healthtrack");
     } catch (err) {
       setError(err.message);
+      setStatus("error");
     }
-  }
+  };
 
   return (
     <div className="auth-container">
@@ -40,14 +49,15 @@ export function LoginPage() {
         <p className="small-muted">Welcome back! Please log in.</p>
       </div>
 
-      <form className="auth-form" onSubmit={submit}>
+      <form className="auth-form" onSubmit={handleSubmit}>
         <div className="auth-row">
           <label>Email</label>
           <input
             type="email"
+            name="email"
             required
             value={form.email}
-            onChange={e => setForm({ ...form, email: e.target.value })}
+            onChange={handleChange}
             className="healthtrack-input"
           />
         </div>
@@ -56,15 +66,19 @@ export function LoginPage() {
           <label>Password</label>
           <input
             type="password"
+            name="password"
             required
             value={form.password}
-            onChange={e => setForm({ ...form, password: e.target.value })}
+            onChange={handleChange}
             className="healthtrack-input"
           />
         </div>
 
-        {error && <div className="auth-error">{error}</div>}
-        <button className="btn-primary">Log In</button>
+        {status === "error" && <div className="auth-error">{error}</div>}
+
+        <button className="btn-primary" disabled={status === "loading"}>
+          {status === "loading" ? "Logging in..." : "Log In"}
+        </button>
       </form>
 
       <div className="auth-footer small-muted">
@@ -75,7 +89,9 @@ export function LoginPage() {
   );
 }
 
-/* ================= REGISTER ================= */
+/* ======================================================
+   REGISTER PAGE
+====================================================== */
 export function RegisterPage() {
   const [form, setForm] = useState({
     first_name: "",
@@ -88,10 +104,16 @@ export function RegisterPage() {
     height: "",
     weight: "",
   });
+
+  const [status, setStatus] = useState(""); // "", loading, error
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  async function submit(e) {
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -99,6 +121,8 @@ export function RegisterPage() {
       setError("Passwords do not match");
       return;
     }
+
+    setStatus("loading");
 
     try {
       const res = await fetch(`${API_URL}/auth/register`, {
@@ -116,53 +140,109 @@ export function RegisterPage() {
       navigate("/healthtrack");
     } catch (err) {
       setError(err.message);
+      setStatus("error");
     }
-  }
+  };
 
   return (
     <div className="auth-container">
       <div className="auth-header">
         <h2>Create your Health Track account</h2>
-        <p className="small-muted">Sign up to get started.</p>
+        <p className="small-muted">Sign up and get started.</p>
       </div>
 
-      <form className="auth-form" onSubmit={submit}>
-        <input className="healthtrack-input" placeholder="First name"
-          onChange={e => setForm({ ...form, first_name: e.target.value })} required />
-        <input className="healthtrack-input" placeholder="Last name"
-          onChange={e => setForm({ ...form, last_name: e.target.value })} required />
-        <input type="email" className="healthtrack-input" placeholder="Email"
-          onChange={e => setForm({ ...form, email: e.target.value })} required />
-        <input type="password" className="healthtrack-input" placeholder="Password"
-          onChange={e => setForm({ ...form, password: e.target.value })} required />
-        <input type="password" className="healthtrack-input" placeholder="Confirm password"
-          onChange={e => setForm({ ...form, confirm: e.target.value })} required />
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <input
+          className="healthtrack-input"
+          name="first_name"
+          placeholder="First name"
+          required
+          onChange={handleChange}
+        />
 
-        <select className="healthtrack-input"
-          onChange={e => setForm({ ...form, gender: e.target.value })} required>
+        <input
+          className="healthtrack-input"
+          name="last_name"
+          placeholder="Last name"
+          required
+          onChange={handleChange}
+        />
+
+        <input
+          type="email"
+          className="healthtrack-input"
+          name="email"
+          placeholder="Email"
+          required
+          onChange={handleChange}
+        />
+
+        <input
+          type="password"
+          className="healthtrack-input"
+          name="password"
+          placeholder="Password"
+          required
+          onChange={handleChange}
+        />
+
+        <input
+          type="password"
+          className="healthtrack-input"
+          name="confirm"
+          placeholder="Confirm password"
+          required
+          onChange={handleChange}
+        />
+
+        <select
+          className="healthtrack-input"
+          name="gender"
+          required
+          onChange={handleChange}
+        >
           <option value="">Gender</option>
           <option>Male</option>
           <option>Female</option>
           <option>Other</option>
         </select>
 
-        <input type="date" className="healthtrack-input"
-          onChange={e => setForm({ ...form, date_of_birth: e.target.value })} required />
+        <input
+          type="date"
+          className="healthtrack-input"
+          name="date_of_birth"
+          required
+          onChange={handleChange}
+        />
 
-        <input type="number" step="0.01" className="healthtrack-input"
+        <input
+          type="number"
+          step="0.01"
+          className="healthtrack-input"
+          name="height"
           placeholder="Height (m)"
-          onChange={e => setForm({ ...form, height: e.target.value })} />
+          onChange={handleChange}
+        />
 
-        <input type="number" step="0.1" className="healthtrack-input"
+        <input
+          type="number"
+          step="0.1"
+          className="healthtrack-input"
+          name="weight"
           placeholder="Weight (kg)"
-          onChange={e => setForm({ ...form, weight: e.target.value })} />
+          onChange={handleChange}
+        />
 
-        {error && <div className="auth-error">{error}</div>}
-        <button className="btn-primary">Register</button>
+        {status === "error" && <div className="auth-error">{error}</div>}
+
+        <button className="btn-primary" disabled={status === "loading"}>
+          {status === "loading" ? "Creating account..." : "Register"}
+        </button>
       </form>
 
       <div className="auth-footer small-muted">
-        Already have an account? <Link to="/login">Sign in</Link>
+        Already have an account?{" "}
+        <Link to="/login">Sign in</Link>
       </div>
     </div>
   );
