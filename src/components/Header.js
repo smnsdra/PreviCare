@@ -7,12 +7,18 @@ export default function Header() {
       <div className="branding d-flex align-items-center">
         <div className="container position-relative d-flex align-items-center justify-content-between">
           <Link to="/" className="logo d-flex align-items-center me-auto">
+<<<<<<< HEAD
 
             <img
               src={`${process.env.PUBLIC_URL}/assets/img/logo.png`}
               alt="PreviCare Logo"
               style={{ maxHeight: 60, marginRight: 8 }}
             />
+=======
+            <img src: `${process.env.PUBLIC_URL}/assets/img/logo.png`,
+
+               style={{ maxHeight: 60, marginRight: 8 }} />
+>>>>>>> 9d9a27417bb9958147be05e2c4f49c2d7461c199
             <h1 className="sitename">PreviCare</h1>
           </Link>
           <nav id="navmenu" className="navmenu">
