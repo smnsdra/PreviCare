@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Promos from "../components/Promos";
 import Gallery from "../components/Gallery";
 import "../styles/perks-section.css"; // Ensure styles for flipping circles are loaded
+
 // Dynamically load the small interaction helper only in the browser
 // (prevents issues when rendering on the server)
 function usePerksInteraction() {
@@ -15,12 +16,26 @@ function usePerksInteraction() {
 }
 
 const workshopImages = [
-{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-1.jpg`, caption: "Community Screening — Beirut" }
-{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-2.jpg`, caption: "Vaccination Awareness Session" }
-{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-3.jpg`, caption: "School Health Workshop" }
-{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-4.jpg`, caption: "Nutrition & Wellness" }
-{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-5.jpg`, caption: "Mental Health Meetup" }
-{ src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-6.jpg`, caption: "Volunteer Training Day" }
+  {
+    src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-1.jpg`,
+    caption: "Community Screening — Beirut",
+  },
+  {
+    src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-2.jpg`,
+    caption: "Vaccination Awareness Session",
+  },
+  {
+    src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-3.jpg`,
+    caption: "School Health Workshop",
+  },
+  {
+    src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-4.jpg`,
+    caption: "Nutrition & Wellness",
+  },
+  {
+    src: `${process.env.PUBLIC_URL}/assets/img/gallery/workshop-5.jpg`,
+    caption: "Mental Health Meetup",
+  },
 ];
 
 export default function Home() {
@@ -37,7 +52,8 @@ export default function Home() {
       {/* Hero */}
       <section id="hero" className="hero section light-background" aria-label="Hero">
         <img
-          src={`${process.env.PUBLIC_URL}/assets/img/hero-bg.jpg`}          alt="PreviCare hero background"
+          src={`${process.env.PUBLIC_URL}/assets/img/hero-bg.jpg`}
+          alt="PreviCare hero background"
           data-aos="fade-in"
           style={{ width: "100%", objectFit: "cover" }}
         />
@@ -268,56 +284,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Core Services */}
-      <section id="core-services" className="section light-background" aria-label="Core Services">
-        <div className="container">
-          <div className="section-title">
-            <h2>Core Services</h2>
-            <p className="small-muted">What we offer to communities and partners</p>
-          </div>
-
-          <div className="d-flex flex-row flex-wrap justify-content-between gap-3 services-bar">
-            <div className="service-pill centered p-3" style={{ minWidth: 170 }}>
-              <i className="bi bi-journal-medical fs-2" style={{ color: "var(--pc-turquoise)" }} aria-hidden="true" />
-              <h6 className="mt-2">Educational Content</h6>
-              <small className="small-muted">Guides, vaccine updates and quick tips.</small>
-            </div>
-
-            <div className="service-pill centered p-3" style={{ minWidth: 170 }}>
-              <i className="bi bi-megaphone-fill fs-2" style={{ color: "var(--pc-green)" }} aria-hidden="true" />
-              <h6 className="mt-2">Workshops & Events</h6>
-              <small className="small-muted">Interactive community sessions and screenings.</small>
-            </div>
-
-            <div className="service-pill centered p-3" style={{ minWidth: 170 }}>
-              <i className="bi bi-people-fill fs-2" style={{ color: "var(--pc-lightblue)" }} aria-hidden="true" />
-              <h6 className="mt-2">Volunteer Network</h6>
-              <small className="small-muted">Training, certificates & mentorship.</small>
-            </div>
-
-            <div className="service-pill centered p-3" style={{ minWidth: 170 }}>
-              <i className="bi bi-phone-fill fs-2" style={{ color: "var(--pc-salmon)" }} aria-hidden="true" />
-              <h6 className="mt-2">Tele-Consultation</h6>
-              <small className="small-muted">Access to preventive medicine specialists.</small>
-            </div>
-
-            <div className="service-pill centered p-3" style={{ minWidth: 170 }}>
-              <i className="bi bi-heart-pulse fs-2" style={{ color: "var(--pc-turquoise)" }} aria-hidden="true" />
-              <h6 className="mt-2">Community Screening</h6>
-              <small className="small-muted">On-site screenings and referral pathways.</small>
-            </div>
-
-            <div className="service-pill centered p-3" style={{ minWidth: 170 }}>
-              <i className="bi bi-bar-chart-line fs-2" style={{ color: "var(--pc-green)" }} aria-hidden="true" />
-              <h6 className="mt-2">Research & Data</h6>
-              <small className="small-muted">Evidence collection and local health insights.</small>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Perks & Promotions */}
-        <section id="perks" className="section" aria-label="Perks and Promotions">
+      <section id="perks" className="section" aria-label="Perks and Promotions">
         <div className="container">
           <div className="section-title">
             <h2>Perks & Promotions</h2>
