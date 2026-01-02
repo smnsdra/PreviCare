@@ -1,7 +1,8 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const db = require("../db"); // نفس db يلي مستخدم بال contact
+const db = require("../db");
+
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
@@ -21,19 +22,19 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const [existing] = await db.query(
+    const [exists] = await db.query(
       "SELECT id FROM users WHERE email = ?",
       [email]
     );
 
-    if (existing.length > 0) {
+    if (exists.length > 0) {
       return res.status(400).json({ error: "Email already exists" });
     }
 
     const password_hash = await bcrypt.hash(password, 10);
 
     const [result] = await db.query(
-      `INSERT INTO users 
+      `INSERT INTO users
       (first_name, last_name, email, password_hash, gender, date_of_birth, height, weight)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [
@@ -41,15 +42,15 @@ router.post("/register", async (req, res) => {
         last_name,
         email,
         password_hash,
-        gender || null,
-        date_of_birth || null,
-        height || null,
-        weight || null,
+        gender,
+        date_of_birth,
+        height,
+        weight,
       ]
     );
 
     const token = jwt.sign(
-      { id: result.insertId, email },
+      { id: result.insertId },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
@@ -64,7 +65,7 @@ router.post("/register", async (req, res) => {
       },
     });
   } catch (err) {
-    console.error("REGISTER ERROR:", err);
+    console.error(err);
     res.status(500).json({ error: "Server error" });
   }
 });
