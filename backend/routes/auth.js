@@ -42,10 +42,10 @@ router.post("/register", async (req, res) => {
         last_name,
         email,
         password_hash,
-        gender,
-        date_of_birth,
-        height,
-        weight,
+        gender || null,
+        date_of_birth || null,
+        height ? Number(height) : null,
+        weight ? Number(weight) : null,
       ]
     );
 
@@ -65,7 +65,7 @@ router.post("/register", async (req, res) => {
       },
     });
   } catch (err) {
-    console.error(err);
+    console.error("REGISTER ERROR:", err);
     res.status(500).json({ error: "Server error" });
   }
 });
