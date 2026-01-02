@@ -1,0 +1,311 @@
+/* Mood icon button */
+.ht-mood-track {
+  display: flex;
+  gap: 18px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  justify-content: center;
+}
+.ht-mood-btn {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 2.5px solid #e5f8f6;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color .16s, box-shadow .14s, transform .13s;
+  box-shadow: 0 2px 11px #e4fdfb28, 0 1.5px 6px #d7fbe832;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.45em;
+  padding: 0;
+  outline: none;
+  opacity: 0.91;
+}
+.ht-mood-btn.active {
+  border: 2.5px solid var(--pc-turquoise,#0bbbba);
+  box-shadow: 0 10px 24px #03f3cb11, 0 2px 10px #0cc1b10c;
+  opacity: 1;
+  transform: scale(1.10);
+}
+.ht-mood-btn:focus {
+  border-color: var(--pc-lightblue,#86d8f8);
+  box-shadow: 0 11px 28px #03f3cb0e;
+  outline: none;
+  transform: scale(1.09);
+}
+
+/* Metric Circles */
+.ht-metric-circBG {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: #fafdff;
+  box-shadow: 0 8px 36px 0 rgba(22,210,212,0.09);
+  margin-bottom: 4px;
+  position: relative;
+}
+
+.recent-entries-section {
+  margin-top: 14px;
+  margin-bottom: 32px;
+  background: none;
+  border-radius: 13px;
+}
+.trend-charts-row {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 9px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: end;
+}
+.chart-sparkline {
+  width: 65px;
+  background: none;
+  margin: 0;
+  text-align: center;
+}
+.chart-sparkline-label {
+  text-align: center;
+  font-size: .94em;
+  color: #1095a6;
+  margin-top: -7px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  opacity: .85;
+  line-height: 1.1;
+}
+.chart-sparkline-unit {
+  font-size: 0.93em;
+  color: #d8d9e7;
+  margin-left: 2px;
+  font-weight: 400;
+}
+
+/* Minimal/Floating Table design */
+.recent-entries-table-ui {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 1.04em;
+  margin-top: 3px;
+  border-radius: 14px 14px 12px 12px;
+  overflow: hidden;
+}
+.recent-entries-table-ui thead th {
+  background: linear-gradient(90deg, #d1f5f7 0%, #f5fef9 100%);
+  color: #16a2b1;
+  font-weight: 700;
+  padding: 11px 8px;
+  border: none;
+  font-size: 1em;
+  border-bottom: 2.5px solid #b6ede2;
+}
+.recent-entries-table-ui .recent-notes-head {
+  color: #229171;
+  font-weight: 600;
+}
+.recent-entries-table-ui tr td, 
+.recent-entries-table-ui tr th {
+  padding: 10px 9px;
+  border: none;
+  background: none;
+  font-size: 0.98em;
+}
+.recent-entries-table-ui tbody tr {
+  border-radius: 8px;
+  transition: box-shadow .11s, background .11s;
+  background: rgba(255,255,255,0.66);
+}
+.recent-entries-table-ui tbody tr:hover {
+  background: #eafff9;
+  box-shadow: 0 4px 22px #2ce8fc12;
+}
+.recent-entries-table-ui td {
+  text-align: center;
+}
+.recent-entries-table-ui .recent-date-cell {
+  text-align: left;
+  font-weight: 600;
+  color: #18aba8;
+  border-radius: 9px 0 0 9px;
+  background: linear-gradient(90deg, #f4fefd .54%, #f1ffffbc 80%);
+}
+.recent-entries-table-ui .recent-notes-cell {
+  text-align: left;
+  color: #43717c;
+  font-size: .98em;
+}
+.table-mood { font-size: 1.2em; display: inline-block; }
+.table-mood-happy { color: #25c36c; }
+.table-mood-neutral { color: #2597ad; }
+.table-mood-tired { color: #ffc488; }
+.table-mood-sad { color: #fa6b97; }
+
+.main-trend-chart-section {
+  max-width: 410px;
+  margin: 0 auto 40px auto;
+  background: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main-trend-chart-metric-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.main-chart-tab-btn {
+  background: #fbfffe;
+  border: 2.3px solid #e4f9ed;
+  border-radius: 19px;
+  box-shadow: 0 1px 13px #ccf3f12c, 0 1.5px 6px #deeaea10;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  font-size: 1.07em;
+  font-weight: 500;
+  color: #189da7;
+  gap: 7px;
+  transition: box-shadow .13s, border-color .13s, color .13s;
+  cursor: pointer;
+  outline: none;
+}
+.main-chart-tab-btn.active, .main-chart-tab-btn:focus {
+  color: #036174;
+  border-color: #17bfad;
+  background: #f5fff9;
+  box-shadow: 0 6px 14px #29fde514;
+}
+.main-trend-chart-area {
+  width: 100%;
+  max-width: 420px;
+  background: linear-gradient(105deg,#f4fefc 82%,#e5fffd 100%);
+  border-radius: 25px;
+  box-shadow: 0 6px 29px #cdfbef1a,0 3px 8px #9aeedd11;
+  padding: 16px 18px 18px 18px;
+  margin-bottom: 3px;
+}
+.main-trend-chart-title {
+  font-size: 1.14em;
+  font-weight: 600;
+  color: #116a7b;
+  margin-bottom: 7px;
+  letter-spacing: 0.01em;
+}
+.main-trend-chart-area svg { width: 100% !important; min-width: 260px; max-width: 390px; }
+.main-trend-chart-axis {
+  display: flex;
+  align-items: center;
+  margin-top: 2px;
+  font-size: 0.96em;
+  color: #19bab1;
+  opacity: .96;
+}
+@media (max-width:520px) {
+  .main-trend-chart-area, .main-trend-chart-section { max-width: 97vw !important; }
+}
+.floating-table-wrap {
+  border-radius: 20px;
+  background: linear-gradient(112deg, #f5feff 70%, #f7fefd 100%);
+  box-shadow: 0 9px 24px #53f8e019, 0 1.5px 9px #99e6e417;
+  overflow-x: auto;
+  margin-bottom: 0;
+}
+.recent-entries-table-ui {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 1.04em;
+  border-radius: 20px;
+  min-width: 630px;
+  background: none;
+}
+.recent-entries-table-ui thead th {
+  background: linear-gradient(90deg, #eafffb 0%, #eaffe3 100%);
+  color: #15b5ae;
+  font-weight: 700;
+  padding: 13px 10px 10px 13px;
+  border: none;
+  font-size: 1.01em;
+  border-radius: 16px 16px 0 0;
+  border-bottom: 2.5px solid #caf9ee;
+}
+.recent-entries-table-ui tr td,
+.recent-entries-table-ui tr th {
+  padding: 12px 13px;
+  border: none;
+  background: none;
+  font-size: 0.96em;
+}
+.recent-entries-table-ui tbody tr {
+  transition: background .09s, box-shadow .10s;
+}
+.recent-entries-table-ui tbody tr:hover {
+  background: #ecfdfc;
+  box-shadow: 0 2px 18px #2cf7fa1c;
+  border-radius: 11px;
+}
+.recent-entries-table-ui td {
+  text-align: center;
+  border-bottom: 1.6px solid #e6f8f7;
+}
+.recent-entries-table-ui tr:last-child td {
+  border-bottom: none;
+}
+.recent-date-cell {
+  text-align: left;
+  font-weight: 600;
+  color: #18aba8;
+  background: linear-gradient(90deg, #f4fefd .54%, #f6fffb 80%);
+  border-radius: 11px 0 0 11px;
+}
+.recent-notes-cell {
+  text-align: left;
+  color: #43717c;
+  font-size: .98em;
+  border-radius: 0 11px 11px 0;
+  max-width: 180px;
+  word-break: break-word;
+}
+.table-mood { font-size: 1.2em; display: inline-block; }
+.table-mood-happy { color: #25c36c;}
+.table-mood-neutral { color: #2597ad;}
+.table-mood-tired { color: #b1a800;}
+.table-mood-sad { color: #fa6b97;}
+@media (max-width:700px) {
+  .floating-table-wrap { min-width: 0; overflow-x: scroll;}
+  .recent-entries-table-ui {min-width: 540px;}
+}
+@media (max-width:520px) {
+  .main-trend-chart-area, .main-trend-chart-section { max-width: 98vw !important; }
+  .recent-entries-table-ui {font-size: 0.94em;}
+}
+
+
+/* Login/Register shared styles — add these to your HealthTrack.css */
+.auth-container {
+  max-width: 370px;
+  margin: 48px auto 0 auto;
+  background: linear-gradient(110deg, #eefbf8 .6%, #eaf8fa 98%);
+  border-radius: 23px;
+  box-shadow: 0 8px 32px #58f8e319, 0 1.5px 6px #a6f8e018;
+  padding: 36px 34px 24px 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.auth-header { text-align: center; margin-bottom: 15px; }
+.auth-header h2 { margin-bottom: 10px; color: var(--pc-dark, #135b63);}
+.auth-row { display: flex; flex-direction: column; gap: 2px; margin-bottom: 13px;}
+.auth-row label { font-weight: 600; color: var(--pc-turquoise,#03ada1); margin-bottom: 2px;}
+.auth-error { background: #fff7f7; color: #c1324b; border-radius: 8px; font-size: 1em; padding: 7px 0; text-align: center; margin-bottom: 10px;}
+.auth-form { width: 100%; }
+.auth-footer { margin-top: 18px; text-align: center;}
+@media (max-width:500px) {
+  .auth-container { padding: 23px 8vw 20px 8vw; min-width: 0;}
+}
