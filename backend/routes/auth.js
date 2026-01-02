@@ -5,9 +5,6 @@ const db = require("../db");
 
 const router = express.Router();
 
-/* =========================
-   REGISTER
-========================= */
 router.post("/register", async (req, res) => {
   try {
     const {
@@ -21,31 +18,25 @@ router.post("/register", async (req, res) => {
       weight,
     } = req.body;
 
-    // 1️⃣ تحقق من الحقول الأساسية
     if (!first_name || !last_name || !email || !password) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    // 2️⃣ تحقق إذا الإيميل موجود
-    const [existing] = await db.query(
+    const [exists] = await db.query(
       "SELECT id FROM users WHERE email = ?",
       [email]
     );
 
-    if (existing.length > 0) {
+    if (exists.length > 0) {
       return res.status(400).json({ error: "Email already exists" });
     }
 
-    // 3️⃣ تشفير كلمة المرور
     const password_hash = await bcrypt.hash(password, 10);
 
-    // 4️⃣ إدخال المستخدم
     const [result] = await db.query(
-      `
-      INSERT INTO users
+      `INSERT INTO users 
       (first_name, last_name, email, password_hash, gender, date_of_birth, height, weight)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-      `,
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         first_name,
         last_name,
@@ -53,24 +44,17 @@ router.post("/register", async (req, res) => {
         password_hash,
         gender || null,
         date_of_birth || null,
-        height !== "" ? Number(height) : null,
-        weight !== "" ? Number(weight) : null,
+        height ? Number(height) : null,
+        weight ? Number(weight) : null,
       ]
     );
 
-    // 5️⃣ إنشاء JWT
-    if (!process.env.JWT_SECRET) {
-      console.error("JWT_SECRET IS MISSING");
-      return res.status(500).json({ error: "JWT not configured" });
-    }
-
     const token = jwt.sign(
-      { id: result.insertId, email },
-      process.env.JWT_SECRET,
+      { id: result.insertId },
+      process.env.JWT_SECRET || "devsecret",
       { expiresIn: "7d" }
     );
 
-    // 6️⃣ الرد
     res.json({
       token,
       user: {
