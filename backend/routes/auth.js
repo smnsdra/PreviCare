@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
-const pool = require("../db");
-
+const jwt = require("jsonwebtoken");
+const db = require("../db"); // نفس db يلي مستخدم بال contact
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
@@ -17,53 +17,55 @@ router.post("/register", async (req, res) => {
       weight,
     } = req.body;
 
-    const hashed = await bcrypt.hash(password, 10);
+    if (!first_name || !last_name || !email || !password) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
 
-    await pool.execute(
-      `INSERT INTO users 
-      (first_name, last_name, email, password, gender, date_of_birth, height, weight)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      [first_name, last_name, email, hashed, gender, date_of_birth, height, weight]
-    );
-
-    res.json({ success: true });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "DB error" });
-  }
-});
-
-router.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    const [rows] = await pool.execute(
-      "SELECT * FROM users WHERE email = ?",
+    const [existing] = await db.query(
+      "SELECT id FROM users WHERE email = ?",
       [email]
     );
 
-    if (rows.length === 0) {
-      return res.status(401).json({ error: "Invalid credentials" });
+    if (existing.length > 0) {
+      return res.status(400).json({ error: "Email already exists" });
     }
 
-    const user = rows[0];
-    const match = await bcrypt.compare(password, user.password);
+    const password_hash = await bcrypt.hash(password, 10);
 
-    if (!match) {
-      return res.status(401).json({ error: "Invalid credentials" });
-    }
+    const [result] = await db.query(
+      `INSERT INTO users 
+      (first_name, last_name, email, password_hash, gender, date_of_birth, height, weight)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        first_name,
+        last_name,
+        email,
+        password_hash,
+        gender || null,
+        date_of_birth || null,
+        height || null,
+        weight || null,
+      ]
+    );
+
+    const token = jwt.sign(
+      { id: result.insertId, email },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
 
     res.json({
+      token,
       user: {
-        id: user.id,
-        email: user.email,
-        first_name: user.first_name,
-        last_name: user.last_name,
+        id: result.insertId,
+        first_name,
+        last_name,
+        email,
       },
     });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "DB error" });
+    console.error("REGISTER ERROR:", err);
+    res.status(500).json({ error: "Server error" });
   }
 });
 
