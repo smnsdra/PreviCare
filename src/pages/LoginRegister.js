@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./HealthTrack.css";
 
-const API_URL = "https://brilliant-solace-production.up.railway.app";
+const API_URL = "https://brilliant-solace-production.up.railway.app/api";
 
 /* ======================================================
    LOGIN PAGE
