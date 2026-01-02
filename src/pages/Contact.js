@@ -8,7 +8,7 @@ export default function Contact() {
     message: "",
   });
 
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState(""); // "", loading, success, error
 
   const handleChange = (e) => {
     setForm({
@@ -56,7 +56,10 @@ export default function Contact() {
     <section id="contact" className="contact section">
       <div className="container section-title">
         <h2>Contact</h2>
-        <p>Questions, partnership requests, or workshop registrations — get in touch.</p>
+        <p>
+          Questions, partnership requests, or workshop registrations — get in
+          touch.
+        </p>
       </div>
 
       <div className="container">
@@ -88,7 +91,8 @@ export default function Contact() {
           </div>
 
           <div className="col-lg-8">
-            <form className="php-email-form" onSubmit={handleSubmit}>
+            {/* ❌ لا php-email-form */}
+            <form onSubmit={handleSubmit}>
               <div className="row gy-4">
                 <div className="col-md-6">
                   <input
@@ -142,17 +146,22 @@ export default function Contact() {
                   {status === "loading" && (
                     <div className="loading">Sending...</div>
                   )}
+
                   {status === "success" && (
                     <div className="sent-message">
                       Your message has been sent. Thank you!
                     </div>
                   )}
+
                   {status === "error" && (
                     <div className="error-message">
                       Something went wrong. Please try again.
                     </div>
                   )}
-                  <button type="submit">Send Message</button>
+
+                  <button type="submit" disabled={status === "loading"}>
+                    Send Message
+                  </button>
                 </div>
               </div>
             </form>
@@ -162,4 +171,3 @@ export default function Contact() {
     </section>
   );
 }
-
