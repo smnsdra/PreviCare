@@ -91,8 +91,7 @@ export default function Contact() {
           </div>
 
           <div className="col-lg-8">
-            {/* ❌ لا php-email-form */}
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}  className="php-email-form">
               <div className="row gy-4">
                 <div className="col-md-6">
                   <input
