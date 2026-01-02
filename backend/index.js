@@ -22,12 +22,10 @@ app.use(
   })
 );
 
-// health check
 app.get("/", (req, res) => {
   res.send("Backend running");
 });
 
-// routes
 app.use("/api/auth", authRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/records", recordsRoutes);
