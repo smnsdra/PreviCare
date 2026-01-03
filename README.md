@@ -215,3 +215,173 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+---
+
+## 🛠 Backend Development (Node.js & MySQL)
+
+The backend of **PreviCare** was developed using **Node.js** and **Express.js** to provide a functional, secure, and scalable server-side architecture.  
+It handles authentication, database operations, and CRUD functionality for health tracking and user communication.
+
+---
+
+## 🔁 CRUD Operations – HealthTrack
+
+The **HealthTrack** feature implements full **CRUD operations** to allow users to manage their health data efficiently.
+
+### Implemented Operations:
+- **Create**:  
+  Users can add new health entries (weight, height, sleep, water intake, steps, heart rate, mood, notes).
+- **Read**:  
+  Stored entries are retrieved from the database and displayed in tables and charts.
+- **Update**:  
+  Users can edit existing health records directly from the UI.
+- **Delete**:  
+  Users can remove unwanted or incorrect health entries.
+
+### CRUD Flow:
+Frontend (React) → API (Express) → Database (MySQL)
+
+📸 **Screenshot – HealthTrack CRUD Interface:**  
+> *(Insert screenshot here)*  
+> `screenshots/healthtrack-crud.png`
+
+---
+
+## 🗄 Database Design (MySQL)
+
+The project uses **MySQL** as the primary database management system.  
+The database includes multiple related tables with validation and error handling.
+
+### 📌 Main Tables
+
+#### 1️⃣ Users (Registration & Authentication)
+Stores registered user information.
+
+**Fields:**
+- `id` (Primary Key)
+- `name`
+- `email`
+- `password` (hashed)
+- `created_at`
+
+📸 **Screenshot – Users Table:**  
+> `screenshots/mysql-users-table.png`
+
+---
+
+#### 2️⃣ Contact Messages
+Stores messages sent through the Contact form.
+
+**Fields:**
+- `id` (Primary Key)
+- `name`
+- `email`
+- `message`
+- `created_at`
+
+📸 **Screenshot – Contact Table:**  
+> `screenshots/mysql-contact-table.png`
+
+---
+
+#### 3️⃣ Health Entries
+Stores health tracking data for each user.
+
+**Fields:**
+- `id`
+- `user_id` (Foreign Key → Users)
+- `weight`
+- `height`
+- `sleep_hours`
+- `water_intake`
+- `steps`
+- `heart_rate`
+- `mood`
+- `notes`
+- `date`
+
+📸 **Screenshot – HealthTrack Table:**  
+> `screenshots/mysql-healthtrack-table.png`
+
+---
+
+## 🔐 User Authentication
+
+The backend supports:
+- **User Registration**
+- **User Login**
+- Input validation
+- Secure password handling
+
+Authentication endpoints are connected to the MySQL `users` table.
+
+📸 **Screenshot – Registration API Test (Postman):**  
+> `screenshots/postman-register.png`
+
+📸 **Screenshot – Login API Test (Postman):**  
+> `screenshots/postman-login.png`
+
+---
+
+## ☁️ Backend Deployment
+
+The backend server is deployed online to ensure availability and testing.
+
+### 🚀 Deployment Platforms
+- **Render** – Backend API hosting  
+- **Railway** – MySQL database hosting
+
+The backend is fully functional and connected to the live database.
+
+📸 **Screenshot – Backend Running on Render:**  
+> `screenshots/render-backend-running.png`
+
+📸 **Screenshot – Database Running on Railway:**  
+> `screenshots/railway-mysql-running.png`
+
+---
+
+## ⚙️ Backend Technologies Used
+
+- **Node.js**
+- **Express.js**
+- **MySQL**
+- **dotenv**
+- **CORS**
+- **bcrypt** (password hashing)
+- **REST API architecture**
+
+---
+
+## 📈 Error Handling & Validation
+
+- Input validation for all forms
+- Proper HTTP status codes
+- Server-side error handling
+- Safe database queries
+
+---
+
+## 🔮 Future Enhancements
+
+- JWT-based authentication
+- Role-based access (Admin panel)
+- Email notifications
+- Advanced analytics for HealthTrack
+- Mobile-friendly API expansion
+
+---
+
+## ✅ Conclusion
+
+The backend successfully fulfills all project requirements:
+- Functional CRUD operations
+- MySQL database integration
+- Authentication system
+- Deployed backend services
+- Clean and scalable architecture
+
+This backend completes **Phase 2** of the project and prepares the system for future expansion.
+
+---
