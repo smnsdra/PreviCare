@@ -18,10 +18,21 @@ router.post("/register", async (req, res) => {
       weight,
     } = req.body;
 
-    if (!first_name || !last_name || !email || !password) {
-      return res.status(400).json({ error: "Missing required fields" });
+    // تحقق صارم (ولا قيمة فاضية)
+    if (
+      !first_name ||
+      !last_name ||
+      !email ||
+      !password ||
+      !gender ||
+      !date_of_birth ||
+      height === undefined ||
+      weight === undefined
+    ) {
+      return res.status(400).json({ error: "All fields are required" });
     }
 
+    // تأكد أن البريد غير مستخدم
     const [exists] = await db.query(
       "SELECT id FROM users WHERE email = ?",
       [email]
@@ -31,31 +42,39 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ error: "Email already exists" });
     }
 
+    // تشفير كلمة المرور
     const password_hash = await bcrypt.hash(password, 10);
 
+    // إدخال البيانات (بدون null)
     const [result] = await db.query(
-      `INSERT INTO users 
+      `
+      INSERT INTO users
       (first_name, last_name, email, password_hash, gender, date_of_birth, height, weight)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      `,
       [
-        first_name,
-        last_name,
-        email,
+        first_name.trim(),
+        last_name.trim(),
+        email.trim(),
         password_hash,
-        gender || null,
-        date_of_birth || null,
-        height ? Number(height) : null,
-        weight ? Number(weight) : null,
+        gender,
+        date_of_birth,          // DATE
+        Number(height),         // INT
+        Number(weight),         // INT
       ]
     );
 
+    // JWT
     const token = jwt.sign(
-      { id: result.insertId },
-      process.env.JWT_SECRET || "devsecret",
+      {
+        id: result.insertId,
+        email,
+      },
+      process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
 
-    res.json({
+    res.status(201).json({
       token,
       user: {
         id: result.insertId,
