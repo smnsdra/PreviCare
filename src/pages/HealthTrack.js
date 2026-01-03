@@ -1,11 +1,65 @@
 import React, { useState, useEffect } from "react";
 import "./HealthTrack.css";
 
-/* ================== HEALTH TRACK (CRUD) ================== */
+/* ================= ICONS ================= */
+const ICONS = {
+  bmi: (
+    <svg width="36" height="36" viewBox="0 0 36 36">
+      <ellipse cx="18" cy="18" rx="17" ry="17" stroke="var(--pc-turquoise)" strokeWidth="2.8" fill="#f7faf9"/>
+      <rect x="17" y="13" width="2" height="10.5" rx="1" fill="var(--pc-green)" />
+      <polygon points="18,7 16,13 20,13" fill="var(--pc-green)" />
+      <circle cx="18" cy="12.4" r="2" fill="var(--pc-turquoise)" />
+    </svg>
+  ),
+  sleep_ok: (
+    <svg width="36" height="36" viewBox="0 0 36 36">
+      <ellipse cx="18" cy="18" rx="17" ry="17" stroke="#8B82FF" strokeWidth="2.8" fill="#f6f8fe"/>
+      <ellipse cx="15.5" cy="16.2" rx="1.2" ry="1.4" fill="#8B82FF"/>
+      <ellipse cx="20.5" cy="16.2" rx="1.2" ry="1.4" fill="#8B82FF"/>
+      <path d="M15 22 Q18 24.6 21 22" stroke="#625be9" strokeWidth="1.45" fill="none" strokeLinecap="round"/>
+    </svg>
+  ),
+  sleep_bad: (
+    <svg width="36" height="36" viewBox="0 0 36 36">
+      <ellipse cx="18" cy="18" rx="17" ry="17" stroke="#8B82FF" strokeWidth="2.8" fill="#f6f8fe"/>
+      <ellipse cx="15.5" cy="16.2" rx="1.2" ry="1.4" fill="#8B82FF"/>
+      <ellipse cx="20.5" cy="16.2" rx="1.2" ry="1.4" fill="#8B82FF"/>
+      <path d="M15 23 Q18 20.2 21 23" stroke="#625be9" strokeWidth="1.45" fill="none" strokeLinecap="round"/>
+    </svg>
+  ),
+  water: (
+    <svg width="36" height="36" viewBox="0 0 36 36">
+      <ellipse cx="18" cy="18" rx="17" ry="17" stroke="#0EC4B3" strokeWidth="2.8" fill="#f3fcfa"/>
+      <ellipse cx="18" cy="23" rx="7" ry="3.4" fill="#0EC4B3" opacity="0.20" />
+      <path d="M18 10 Q22.7 19 18 27 Q13.3 19 18 10Z" fill="#0EC4B3" opacity="0.18"/>
+    </svg>
+  ),
+  steps: (
+    <svg width="36" height="36" viewBox="0 0 36 36">
+      <ellipse cx="18" cy="18" rx="17" ry="17" stroke="#fb7171" strokeWidth="2.8" fill="#fef7f5"/>
+      <path d="M10 25 Q18 14 26 22" stroke="#fb7171" strokeWidth="2.8" fill="none" strokeLinecap="round"/>
+    </svg>
+  ),
+  heart: (
+    <svg width="36" height="36" viewBox="0 0 36 36">
+      <ellipse cx="18" cy="18" rx="17" ry="17" stroke="#ff4666" strokeWidth="2.7" fill="#fef6fa"/>
+      <polyline points="9,22 16,17 20,26 24,8 29,27" fill="none" stroke="#ff4666" strokeWidth="2.1" strokeLinecap="round"/>
+    </svg>
+  ),
+};
+
+const MOODS = [
+  { key: "happy", icon: "😊" },
+  { key: "neutral", icon: "😐" },
+  { key: "tired", icon: "😑" },
+  { key: "sad", icon: "😞" }
+];
 
 const DEFAULT_HEIGHT = 1.66;
 
+/* ================= COMPONENT ================= */
 export default function HealthTrack() {
+
   const [entries, setEntries] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem("health_entries")) || [];
@@ -15,14 +69,11 @@ export default function HealthTrack() {
   });
 
   const emptyForm = {
-    weight: "",
-    height: "",
-    sleepHours: "",
-    water: "",
-    steps: "",
-    heartRate: "",
-    mood: "neutral",
-    notes: "",
+    weight: "", height: "",
+    systolic: "", diastolic: "",
+    heartRate: "", sleepHours: "",
+    water: 1.5, steps: 0,
+    mood: "neutral", notes: ""
   };
 
   const [form, setForm] = useState(emptyForm);
@@ -33,162 +84,85 @@ export default function HealthTrack() {
     localStorage.setItem("health_entries", JSON.stringify(entries));
   }, [entries]);
 
-  /* ---------- CREATE / UPDATE ---------- */
-  function handleSubmit(e) {
+  /* ---------- ADD / UPDATE ---------- */
+  function submitEntry(e) {
     e.preventDefault();
 
     if (editingId) {
-      // UPDATE
-      setEntries((prev) =>
-        prev.map((e) =>
-          e.id === editingId ? { ...e, ...form } : e
-        )
+      setEntries(prev =>
+        prev.map(en => en.id === editingId ? { ...en, ...form } : en)
       );
       setEditingId(null);
     } else {
-      // CREATE
-      const entry = {
-        id: Date.now(), // id يدوي مثل ما بدك
-        date: new Date().toISOString(),
-        ...form,
-      };
-      setEntries((prev) => [entry, ...prev]);
+      setEntries(prev => [
+        { id: Date.now(), date: new Date().toISOString(), ...form },
+        ...prev
+      ]);
     }
-
     setForm(emptyForm);
+  }
+
+  /* ---------- EDIT ---------- */
+  function editEntry(e) {
+    setForm({ ...e });
+    setEditingId(e.id);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   /* ---------- DELETE ---------- */
   function deleteEntry(id) {
     if (!window.confirm("Delete this entry?")) return;
-    setEntries((prev) => prev.filter((e) => e.id !== id));
+    setEntries(prev => prev.filter(e => e.id !== id));
   }
 
-  /* ---------- EDIT ---------- */
-  function editEntry(entry) {
-    setForm({
-      weight: entry.weight,
-      height: entry.height,
-      sleepHours: entry.sleepHours,
-      water: entry.water,
-      steps: entry.steps,
-      heartRate: entry.heartRate,
-      mood: entry.mood,
-      notes: entry.notes,
-    });
-    setEditingId(entry.id);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
-  /* ---------- HELPERS ---------- */
   function bmi(e) {
     const w = Number(e.weight);
     const h = Number(e.height) || DEFAULT_HEIGHT;
     return w && h ? (w / (h * h)).toFixed(1) : "-";
   }
 
-  function moodIcon(m) {
-    if (m === "happy") return "😊";
-    if (m === "neutral") return "😐";
-    if (m === "tired") return "😑";
-    if (m === "sad") return "😞";
-    return "-";
+  function tableMood(m) {
+    return MOODS.find(x => x.key === m)?.icon || "-";
   }
 
-  /* ================== UI ================== */
+  /* ================= UI ================= */
   return (
     <div className="healthtrack-container">
+
       {/* -------- FORM -------- */}
-      <form
-        onSubmit={handleSubmit}
-        style={{ maxWidth: 520, margin: "30px auto", display: "grid", gap: 10 }}
-      >
+      <form onSubmit={submitEntry} style={{ maxWidth: 520, margin: "30px auto", display: "grid", gap: 10 }}>
         <h3 style={{ textAlign: "center" }}>
           {editingId ? "Edit Entry" : "Add Entry"}
         </h3>
 
-        <input
-          className="healthtrack-input"
-          type="number"
-          placeholder="Weight (kg)"
-          value={form.weight}
-          onChange={(e) => setForm({ ...form, weight: e.target.value })}
-        />
+        <input className="healthtrack-input" placeholder="Weight (kg)"
+          value={form.weight} onChange={e => setForm(f => ({ ...f, weight: e.target.value }))} />
 
-        <input
-          className="healthtrack-input"
-          type="number"
-          step="0.01"
-          placeholder="Height (m)"
-          value={form.height}
-          onChange={(e) => setForm({ ...form, height: e.target.value })}
-        />
+        <input className="healthtrack-input" placeholder="Height (m)"
+          value={form.height} onChange={e => setForm(f => ({ ...f, height: e.target.value }))} />
 
-        <input
-          className="healthtrack-input"
-          type="number"
-          placeholder="Sleep (hours)"
-          value={form.sleepHours}
-          onChange={(e) =>
-            setForm({ ...form, sleepHours: e.target.value })
-          }
-        />
+        <input className="healthtrack-input" placeholder="Sleep (h)"
+          value={form.sleepHours} onChange={e => setForm(f => ({ ...f, sleepHours: e.target.value }))} />
 
-        <input
-          className="healthtrack-input"
-          type="number"
-          step="0.1"
-          placeholder="Water (L)"
-          value={form.water}
-          onChange={(e) => setForm({ ...form, water: e.target.value })}
-        />
+        <input className="healthtrack-input" placeholder="Water (L)"
+          value={form.water} onChange={e => setForm(f => ({ ...f, water: e.target.value }))} />
 
-        <input
-          className="healthtrack-input"
-          type="number"
-          placeholder="Steps"
-          value={form.steps}
-          onChange={(e) => setForm({ ...form, steps: e.target.value })}
-        />
+        <input className="healthtrack-input" placeholder="Steps"
+          value={form.steps} onChange={e => setForm(f => ({ ...f, steps: e.target.value }))} />
 
-        <input
-          className="healthtrack-input"
-          type="number"
-          placeholder="Heart rate"
-          value={form.heartRate}
-          onChange={(e) =>
-            setForm({ ...form, heartRate: e.target.value })
-          }
-        />
+        <input className="healthtrack-input" placeholder="Heart rate"
+          value={form.heartRate} onChange={e => setForm(f => ({ ...f, heartRate: e.target.value }))} />
 
-        <select
-          className="healthtrack-input"
-          value={form.mood}
-          onChange={(e) => setForm({ ...form, mood: e.target.value })}
-        >
-          <option value="happy">Happy 😊</option>
-          <option value="neutral">Neutral 😐</option>
-          <option value="tired">Tired 😑</option>
-          <option value="sad">Sad 😞</option>
-        </select>
-
-        <textarea
-          className="healthtrack-input"
-          placeholder="Notes"
-          value={form.notes}
-          onChange={(e) => setForm({ ...form, notes: e.target.value })}
-        />
+        <textarea className="healthtrack-input" placeholder="Notes"
+          value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))} />
 
         <button className="btn-primary">
           {editingId ? "Update Entry" : "Add Entry"}
         </button>
       </form>
 
-      {/* -------- TABLE (READ + UPDATE + DELETE) -------- */}
-      <section
-        className="recent-entries-section"
-        style={{ maxWidth: 900, margin: "40px auto" }}
-      >
+      {/* -------- TABLE (CRUD) -------- */}
+      <section className="recent-entries-section" style={{ maxWidth: 900, margin: "40px auto" }}>
         <h4 className="small-muted">Recent Entries</h4>
 
         <table className="recent-entries-table-ui">
@@ -206,37 +180,18 @@ export default function HealthTrack() {
           </thead>
 
           <tbody>
-            {entries.map((e) => (
+            {entries.slice(0, 12).map(e => (
               <tr key={e.id}>
-                <td>
-                  {new Date(e.date).toLocaleDateString()}
-                </td>
+                <td>{new Date(e.date).toLocaleDateString()}</td>
                 <td>{bmi(e)}</td>
                 <td>{e.sleepHours || "-"}</td>
                 <td>{e.water || "-"}</td>
                 <td>{e.steps || "-"}</td>
                 <td>{e.heartRate || "-"}</td>
-                <td>{moodIcon(e.mood)}</td>
+                <td>{tableMood(e.mood)}</td>
                 <td>
-                  <button
-                    onClick={() => editEntry(e)}
-                    style={{
-                      marginRight: 6,
-                      padding: "4px 8px",
-                      borderRadius: 8,
-                    }}
-                  >
-                    ✏️
-                  </button>
-                  <button
-                    onClick={() => deleteEntry(e.id)}
-                    style={{
-                      padding: "4px 8px",
-                      borderRadius: 8,
-                    }}
-                  >
-                    🗑️
-                  </button>
+                  <button onClick={() => editEntry(e)} style={{ marginRight: 6 }}>✏️</button>
+                  <button onClick={() => deleteEntry(e.id)}>🗑️</button>
                 </td>
               </tr>
             ))}
