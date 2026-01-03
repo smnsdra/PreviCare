@@ -14,6 +14,7 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
+    // check email
     const [exists] = await db.query(
       "SELECT id FROM registration WHERE email = ?",
       [email]
@@ -26,7 +27,8 @@ router.post("/register", async (req, res) => {
     const password_hash = await bcrypt.hash(password, 10);
 
     const [result] = await db.query(
-      `INSERT INTO registration (first_name, last_name, email, password_hash)
+      `INSERT INTO registration 
+       (first_name, last_name, email, password_hash)
        VALUES (?, ?, ?, ?)`,
       [first_name, last_name, email, password_hash]
     );
@@ -67,9 +69,9 @@ router.post("/login", async (req, res) => {
     }
 
     const user = rows[0];
-    const isMatch = await bcrypt.compare(password, user.password_hash);
+    const match = await bcrypt.compare(password, user.password_hash);
 
-    if (!isMatch) {
+    if (!match) {
       return res.status(400).json({ error: "Invalid email or password" });
     }
 
