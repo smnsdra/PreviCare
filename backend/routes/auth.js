@@ -5,36 +5,17 @@ const db = require("../db");
 
 const router = express.Router();
 
+/* ================= REGISTER ================= */
 router.post("/register", async (req, res) => {
   try {
-    const {
-      first_name,
-      last_name,
-      email,
-      password,
-      gender,
-      date_of_birth,
-      height,
-      weight,
-    } = req.body;
+    const { first_name, last_name, email, password } = req.body;
 
-    // تحقق صارم (ولا قيمة فاضية)
-    if (
-      !first_name ||
-      !last_name ||
-      !email ||
-      !password ||
-      !gender ||
-      !date_of_birth ||
-      height === undefined ||
-      weight === undefined
-    ) {
-      return res.status(400).json({ error: "All fields are required" });
+    if (!first_name || !last_name || !email || !password) {
+      return res.status(400).json({ error: "Missing required fields" });
     }
 
-    // تأكد أن البريد غير مستخدم
     const [exists] = await db.query(
-      "SELECT id FROM users WHERE email = ?",
+      "SELECT id FROM registration WHERE email = ?",
       [email]
     );
 
@@ -42,39 +23,21 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ error: "Email already exists" });
     }
 
-    // تشفير كلمة المرور
     const password_hash = await bcrypt.hash(password, 10);
 
-    // إدخال البيانات (بدون null)
     const [result] = await db.query(
-      `
-      INSERT INTO users
-      (first_name, last_name, email, password_hash, gender, date_of_birth, height, weight)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-      `,
-      [
-        first_name.trim(),
-        last_name.trim(),
-        email.trim(),
-        password_hash,
-        gender,
-        date_of_birth,          // DATE
-        Number(height),         // INT
-        Number(weight),         // INT
-      ]
+      `INSERT INTO registration (first_name, last_name, email, password_hash)
+       VALUES (?, ?, ?, ?)`,
+      [first_name, last_name, email, password_hash]
     );
 
-    // JWT
     const token = jwt.sign(
-      {
-        id: result.insertId,
-        email,
-      },
+      { id: result.insertId },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
 
-    res.status(201).json({
+    res.json({
       token,
       user: {
         id: result.insertId,
@@ -85,6 +48,48 @@ router.post("/register", async (req, res) => {
     });
   } catch (err) {
     console.error("REGISTER ERROR:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+/* ================= LOGIN ================= */
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const [rows] = await db.query(
+      "SELECT * FROM registration WHERE email = ?",
+      [email]
+    );
+
+    if (rows.length === 0) {
+      return res.status(400).json({ error: "Invalid email or password" });
+    }
+
+    const user = rows[0];
+    const isMatch = await bcrypt.compare(password, user.password_hash);
+
+    if (!isMatch) {
+      return res.status(400).json({ error: "Invalid email or password" });
+    }
+
+    const token = jwt.sign(
+      { id: user.id },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    res.json({
+      token,
+      user: {
+        id: user.id,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+      },
+    });
+  } catch (err) {
+    console.error("LOGIN ERROR:", err);
     res.status(500).json({ error: "Server error" });
   }
 });
