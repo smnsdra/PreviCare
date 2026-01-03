@@ -124,7 +124,7 @@ export default function About() {
             {/* RIGHT: single photo (kept) */}
             <div className="col-lg-4">
               <div className="team-photo-wrapper">     
-                <img src={`${process.env.PUBLIC_URL}/assets/img/about/team-photo.jpg`} alt="PreviCare team" className="team-photo"  />
+                <img src={`${process.env.PUBLIC_URL}/assets/img/About/team-photo.jpg`} alt="PreviCare team" className="team-photo"  />
               </div>
             </div>
           </div>
