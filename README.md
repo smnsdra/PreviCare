@@ -136,7 +136,6 @@ These components contribute to a consistent and flexible UI across all pages.
 
 ---
 
-## 🚀 Setup Instructions
 ## 🛠 Backend Development (Node.js & MySQL)
 
 The backend of **PreviCare** was developed using **Node.js** and **Express.js** to provide a functional, secure, and scalable server-side architecture.  
@@ -162,8 +161,7 @@ The **HealthTrack** feature implements full **CRUD operations** to allow users t
 Frontend (React) → API (Express) → Database (MySQL)
 
 📸 **Screenshot – HealthTrack CRUD Interface:**  
-> *(Insert screenshot here)*  
-> `screenshots/healthtrack-crud.png`
+<img width="1917" height="915" alt="image" src="https://github.com/user-attachments/assets/d893b275-ade6-411d-b5f0-dd25208b7e32" />
 
 ---
 
@@ -174,7 +172,7 @@ The database includes multiple related tables with validation and error handling
 
 ### 📌 Main Tables
 
-#### 1️⃣ Users (Registration & Authentication)
+#### 1️⃣ Registration (Registration & Authentication)
 Stores registered user information.
 
 **Fields:**
@@ -185,7 +183,7 @@ Stores registered user information.
 - `created_at`
 
 📸 **Screenshot – Users Table:**  
-> `screenshots/mysql-users-table.png`
+<img width="1918" height="972" alt="image" src="https://github.com/user-attachments/assets/a322fb7e-9b1e-40de-9084-3099891cf9f4" />
 
 ---
 
@@ -200,28 +198,7 @@ Stores messages sent through the Contact form.
 - `created_at`
 
 📸 **Screenshot – Contact Table:**  
-> `screenshots/mysql-contact-table.png`
-
----
-
-#### 3️⃣ Health Entries
-Stores health tracking data for each user.
-
-**Fields:**
-- `id`
-- `user_id` (Foreign Key → Users)
-- `weight`
-- `height`
-- `sleep_hours`
-- `water_intake`
-- `steps`
-- `heart_rate`
-- `mood`
-- `notes`
-- `date`
-
-📸 **Screenshot – HealthTrack Table:**  
-> `screenshots/mysql-healthtrack-table.png`
+<img width="1918" height="963" alt="image" src="https://github.com/user-attachments/assets/276e1758-6563-4895-9317-453faa0b15bd" />
 
 ---
 
@@ -234,12 +211,6 @@ The backend supports:
 - Secure password handling
 
 Authentication endpoints are connected to the MySQL `users` table.
-
-📸 **Screenshot – Registration API Test (Postman):**  
-> `screenshots/postman-register.png`
-
-📸 **Screenshot – Login API Test (Postman):**  
-> `screenshots/postman-login.png`
 
 ---
 
@@ -254,10 +225,10 @@ The backend server is deployed online to ensure availability and testing.
 The backend is fully functional and connected to the live database.
 
 📸 **Screenshot – Backend Running on Render:**  
-> `screenshots/render-backend-running.png`
+<img width="1918" height="123" alt="image" src="https://github.com/user-attachments/assets/70cddd8e-0bce-407c-9649-0f8e63ca3be8" />
 
 📸 **Screenshot – Database Running on Railway:**  
-> `screenshots/railway-mysql-running.png`
+<img width="1918" height="122" alt="image" src="https://github.com/user-attachments/assets/cba8e9d8-af6f-454f-a2e6-cac055c59054" />
 
 ---
 
@@ -304,6 +275,8 @@ The backend successfully fulfills all project requirements:
 This backend completes **Phase 2** of the project and prepares the system for future expansion.
 
 ---
+## 🚀 Setup Instructions
+
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/your-username/previcare-web.git
