@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react";
-
-const API_URL =
-  "https://brilliant-solace-production.up.railway.app/api/contact";
+import React, { useState } from "react";
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -11,138 +8,164 @@ export default function Contact() {
     message: "",
   });
 
-  const [contacts, setContacts] = useState([]); // READ
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState(""); // "", loading, success, error
 
-  /* ================= CREATE ================= */
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // مهم جدًا
     setStatus("loading");
 
     try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const res = await fetch(
+        "https://brilliant-solace-production.up.railway.app/api/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        }
+      );
 
-      if (!res.ok) throw new Error("Failed");
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Request failed");
+      }
 
       setStatus("success");
-      setForm({ name: "", email: "", subject: "", message: "" });
-      fetchContacts(); // تحديث القائمة
-    } catch {
+      setForm({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Contact form error:", error);
       setStatus("error");
     }
   };
 
-  /* ================= READ ================= */
-  const fetchContacts = async () => {
-    try {
-      const res = await fetch(API_URL);
-      const data = await res.json();
-      setContacts(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    fetchContacts();
-  }, []);
-
-  /* ================= DELETE ================= */
-  const deleteContact = async (id) => {
-    if (!window.confirm("Delete this message?")) return;
-
-    try {
-      await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-      fetchContacts();
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   return (
-    <section className="contact section">
-      <div className="container">
+    <section id="contact" className="contact section">
+      <div className="container section-title">
         <h2>Contact</h2>
+        <p>
+          Questions, partnership requests, or workshop registrations — get in
+          touch.
+        </p>
+      </div>
 
-        {/* ============ FORM (CREATE) ============ */}
-        <form onSubmit={handleSubmit} className="php-email-form">
-          <input
-            name="name"
-            placeholder="Name"
-            value={form.name}
-            onChange={handleChange}
-            required
-          />
-          <input
-            name="email"
-            type="email"
-            placeholder="Email"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-          <input
-            name="subject"
-            placeholder="Subject"
-            value={form.subject}
-            onChange={handleChange}
-            required
-          />
-          <textarea
-            name="message"
-            placeholder="Message"
-            value={form.message}
-            onChange={handleChange}
-            required
-          />
+      <div className="container">
+        <div className="row gy-4">
+          <div className="col-lg-4">
+            <div className="info-item d-flex">
+              <i className="bi bi-geo-alt"></i>
+              <div>
+                <h3>Location</h3>
+                <p>Beirut, Lebanon</p>
+              </div>
+            </div>
 
-          <button type="submit">Send</button>
+            <div className="info-item d-flex">
+              <i className="bi bi-telephone"></i>
+              <div>
+                <h3>Call Us</h3>
+                <p>+961 3 370 665</p>
+              </div>
+            </div>
 
-          {status === "success" && <p>Message sent ✔</p>}
-          {status === "error" && <p>Error ❌</p>}
-        </form>
+            <div className="info-item d-flex">
+              <i className="bi bi-envelope"></i>
+              <div>
+                <h3>Email Us</h3>
+                <p>previcarelb@gmail.com</p>
+              </div>
+            </div>
+          </div>
 
-        {/* ============ READ + DELETE ============ */}
-        <h3 style={{ marginTop: "40px" }}>Messages</h3>
+          <div className="col-lg-8">
+            <form onSubmit={handleSubmit}  className="php-email-form">
+              <div className="row gy-4">
+                <div className="col-md-6">
+                  <input
+                    type="text"
+                    name="name"
+                    className="form-control"
+                    placeholder="Your Name"
+                    value={form.name}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
 
-        <table border="1" width="100%">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Subject</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {contacts.map((c) => (
-              <tr key={c.id}>
-                <td>{c.id}</td>
-                <td>{c.name}</td>
-                <td>{c.email}</td>
-                <td>{c.subject}</td>
-                <td>
-                  <button onClick={() => deleteContact(c.id)}>
-                    Delete
+                <div className="col-md-6">
+                  <input
+                    type="email"
+                    name="email"
+                    className="form-control"
+                    placeholder="Your Email"
+                    value={form.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="col-md-12">
+                  <input
+                    type="text"
+                    name="subject"
+                    className="form-control"
+                    placeholder="Subject"
+                    value={form.subject}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="col-md-12">
+                  <textarea
+                    name="message"
+                    rows="6"
+                    className="form-control"
+                    placeholder="Message"
+                    value={form.message}
+                    onChange={handleChange}
+                    required
+                  ></textarea>
+                </div>
+
+                <div className="col-md-12 text-center">
+                  {status === "loading" && (
+                    <div className="loading">Sending...</div>
+                  )}
+
+                  {status === "success" && (
+                    <div className="sent-message">
+                      Your message has been sent. Thank you!
+                    </div>
+                  )}
+
+                  {status === "error" && (
+                    <div className="error-message">
+                      Something went wrong. Please try again.
+                    </div>
+                  )}
+
+                  <button type="submit" disabled={status === "loading"}>
+                    Send Message
                   </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        {/* UPDATE (اختياري – مش مطلوب للمشروع)
-        <button>Edit</button>
-        */}
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </section>
   );
