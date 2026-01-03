@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./HealthTrack.css";
 
 // ICONS/SYMBOLS
+
+
 const ICONS = {
   bmi: (
     <svg width="36" height="36" viewBox="0 0 36 36">
@@ -71,6 +73,7 @@ const CHARTS = [
 ];
 
 export default function HealthTrack() {
+  const [editingId, setEditingId] = useState(null);
   const [entries, setEntries] = useState(() => {
     try { return JSON.parse(localStorage.getItem("health_entries")) || []; } catch { return []; }
   });
@@ -85,12 +88,7 @@ export default function HealthTrack() {
 
   const [selectedChart, setSelectedChart] = useState(CHARTS[0].key); // e.g. "bmi"
 
-  function addEntry(e) {
-    e.preventDefault();
-    const entry = { id: Date.now(), date: new Date().toISOString(), ...form };
-    setEntries(prev => [entry, ...prev]);
-    setForm({ weight: "", height: "", systolic: "", diastolic: "", heartRate: "", sleepHours: "", sleepQuality: 3, water: 1.5, steps: 0, mood: "neutral", notes: "" });
-  }
+
 
   useEffect(() => {
     localStorage.setItem("health_entries", JSON.stringify(entries));
@@ -179,6 +177,49 @@ export default function HealthTrack() {
     if (out.length === 0) out.push({ text: 'All indicators are within a general healthy range', level: 'good', icon:"✅" });
     return out;
   }
+
+  function addEntry(e) {
+  e.preventDefault();
+    const entry = { id: Date.now(), date: new Date().toISOString(), ...form };
+    setEntries(prev => [entry, ...prev]);
+    setForm({ weight: "", height: "", systolic: "", diastolic: "", heartRate: "", sleepHours: "", sleepQuality: 3, water: 1.5, steps: 0, mood: "neutral", notes: "" });
+  
+  if (editingId) {
+    // UPDATE
+    setEntries(prev =>
+      prev.map(en =>
+        en.id === editingId ? { ...en, ...form } : en
+      )
+    );
+    setEditingId(null);
+  } else {
+    // CREATE
+    const entry = {
+      id: Date.now(),
+      date: new Date().toISOString(),
+      ...form,
+    };
+    setEntries(prev => [entry, ...prev]);
+  }
+
+  setForm({
+    weight: "", height: "",
+    systolic: "", diastolic: "", heartRate: "",
+    sleepHours: "", sleepQuality: 3,
+    water: 1.5, steps: 0,
+    mood: "neutral", notes: "",
+  });
+}
+function handleEdit(entry) {
+  setForm(entry);
+  setEditingId(entry.id);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function handleDelete(id) {
+  if (!window.confirm("Delete this entry?")) return;
+  setEntries(prev => prev.filter(e => e.id !== id));
+}
 
   return (
     <div className="healthtrack-container" style={{paddingBottom:44, background: "var(--background-color, #eaf8fa)"}}>
@@ -277,6 +318,7 @@ export default function HealthTrack() {
               <th>Diastolic</th>
               <th>Heart</th>
               <th>Mood</th>
+              <th>Actions</th>
               <th className="recent-notes-head">Notes</th>
             </tr>
           </thead>
@@ -294,7 +336,26 @@ export default function HealthTrack() {
                 <td>{e.diastolic ?? "-"}</td>
                 <td>{e.heartRate ?? "-"}</td>
                 <td>{tableMood(e.mood)}</td>
-                <td className="recent-notes-cell">{e.notes?.slice(0, 40) || "-"}</td>
+                <td>
+
+                <button
+                  onClick={() => handleEdit(e)}
+                  style={{ marginRight: 6 }}
+                  className="btn"
+                >
+                  ✏️
+                </button>
+
+                <button
+                  onClick={() => handleDelete(e.id)}
+                  style={{ marginRight: 6 }}
+                  className="btn"
+                >
+                  🗑
+                </button>
+              </td>
+              <td className="recent-notes-cell">{e.notes?.slice(0, 40) || "-"}</td>
+
               </tr>
             ))}
           </tbody>
