@@ -4,18 +4,15 @@ import "./HealthTrack.css";
 
 const API_URL = "https://brilliant-solace-production.up.railway.app/api";
 
-/* ======================================================
-   LOGIN PAGE
-====================================================== */
+/* ================= LOGIN ================= */
 export function LoginPage() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +27,7 @@ export function LoginPage() {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Login failed");
+      if (!res.ok) throw new Error(data.error);
 
       localStorage.setItem("healthtrack-token", data.token);
       localStorage.setItem("healthtrack-user", JSON.stringify(data.user));
@@ -46,30 +43,28 @@ export function LoginPage() {
     <div className="auth-container">
       <h2>Sign in</h2>
 
-      <form onSubmit={handleSubmit} className="auth-form">
+      <form className="auth-form" onSubmit={handleSubmit}>
         <input
+          className="healthtrack-input"
           type="email"
           name="email"
           placeholder="Email"
           required
-          value={form.email}
           onChange={handleChange}
-          className="healthtrack-input"
         />
 
         <input
+          className="healthtrack-input"
           type="password"
           name="password"
           placeholder="Password"
           required
-          value={form.password}
           onChange={handleChange}
-          className="healthtrack-input"
         />
 
         {status === "error" && <div className="auth-error">{error}</div>}
 
-        <button disabled={status === "loading"} className="btn-primary">
+        <button className="btn-primary">
           {status === "loading" ? "Logging in..." : "Login"}
         </button>
       </form>
@@ -81,9 +76,7 @@ export function LoginPage() {
   );
 }
 
-/* ======================================================
-   REGISTER PAGE (BASIC)
-====================================================== */
+/* ================= REGISTER ================= */
 export function RegisterPage() {
   const [form, setForm] = useState({
     first_name: "",
@@ -97,9 +90,8 @@ export function RegisterPage() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -125,7 +117,7 @@ export function RegisterPage() {
       });
 
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Register failed");
+      if (!res.ok) throw new Error(data.error);
 
       localStorage.setItem("healthtrack-token", data.token);
       localStorage.setItem("healthtrack-user", JSON.stringify(data.user));
@@ -141,53 +133,53 @@ export function RegisterPage() {
     <div className="auth-container">
       <h2>Create Account</h2>
 
-      <form onSubmit={handleSubmit} className="auth-form">
+      <form className="auth-form" onSubmit={handleSubmit}>
         <input
+          className="healthtrack-input"
           name="first_name"
           placeholder="First name"
           required
           onChange={handleChange}
-          className="healthtrack-input"
         />
 
         <input
+          className="healthtrack-input"
           name="last_name"
           placeholder="Last name"
           required
           onChange={handleChange}
-          className="healthtrack-input"
         />
 
         <input
+          className="healthtrack-input"
           type="email"
           name="email"
           placeholder="Email"
           required
           onChange={handleChange}
-          className="healthtrack-input"
         />
 
         <input
+          className="healthtrack-input"
           type="password"
           name="password"
           placeholder="Password"
           required
           onChange={handleChange}
-          className="healthtrack-input"
         />
 
         <input
+          className="healthtrack-input"
           type="password"
           name="confirm"
           placeholder="Confirm password"
           required
           onChange={handleChange}
-          className="healthtrack-input"
         />
 
         {status === "error" && <div className="auth-error">{error}</div>}
 
-        <button disabled={status === "loading"} className="btn-primary">
+        <button className="btn-primary">
           {status === "loading" ? "Creating..." : "Register"}
         </button>
       </form>
